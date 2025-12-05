@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proflex Finance | Video Library</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bh: {
+              black: '#020617',
+              dark: '#020617',
+              gray: '#111827',
+              text: '#E5E7EB',
+              muted: '#9CA3AF',
+              gold: '#C9A961',
+              accent: '#FFFFFF',
+            },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .glass {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .chip {
+      border-radius: 999px;
+      border-width: 1px;
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .chip-active {
+      border-color: #C9A961;
+      background: radial-gradient(circle at top left, #FACC6B22, #020617);
+      color: #F9FAFB;
+      box-shadow: 0 0 0 1px rgba(201, 169, 97, 0.1), 0 18px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .video-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease,
+                  background 0.25s ease;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
+      border-color: rgba(201, 169, 97, 0.6);
+    }
+
+    .video-thumb {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.18);
+      transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      width: 220%;
+      height: 220%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(201, 169, 97, 0.5);
+    }
+
+    .hero-bg {
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <!-- Navbar -->
+  <header class="fixed inset-x-0 top-0 z-30">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img
+            src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/Proflex_Square200xLogo_TransparentBlack.png"
+            class="h-9 w-9 object-contain brightness-0 invert"
+            alt="Proflex Logo"
+          />
+          <div>
+            <div class="font-serif text-sm tracking-[0.28em] uppercase text-slate-200">
+              Proflex Finance
+            </div>
+            <div class="text-xs text-slate-400">
+              Video Library
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://www.youtube.com/@proflex_finance"
+          target="_blank"
+          class="hidden sm:inline-flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-slate-200 hover:text-bh-gold"
+        >
+          <i class="fa-brands fa-youtube text-red-500"></i>
+          Watch on YouTube
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative pt-28 pb-10 sm:pb-16 lg:pb-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_#FACC6B33,_transparent_55%),_radial-gradient(circle_at_bottom,_#22D3EE22,_transparent_55%),_linear-gradient(to_bottom,_#020617,_#020617)]">
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2100&auto=format&fit=crop"
+        alt="Trading desk and charts"
+        class="w-full h-full object-cover hero-bg"
+      />
+    </div>
+
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid hero-grid gap-10 items-center">
+        <!-- Left -->
+        <div class="space-y-6">
+          <p class="text-[0.7rem] tracking-[0.35em] uppercase text-bh-gold">
+            PROFLEX STUDIO • SESSIONS • MACRO • OPTIONS
+          </p>
+
+          <h1
+            class="font-serif text-4xl sm:text-5xl lg:text-6xl leading-tight text-slate-50 drop-shadow-[0_0_40px_rgba(0,0,0,0.8)]"
+          >
+            A single place for every
+            <span class="text-bh-gold">Proflex</span> video.
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-300 max-w-xl">
+            Macro calls, options playbooks, Embark explainers, and community sessions —
+            organised by playlist, searchable, and always ready to revisit.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              onclick="document.getElementById('video-section').scrollIntoView({ behavior: 'smooth' })"
+              class="btn-primary inline-flex items-center gap-2 rounded-full bg-bh-gold px-6 py-3 text-xs font-semibold tracking-[0.22em] text-black uppercase"
+            >
+              Browse Library
+              <i class="fa-solid fa-arrow-down text-[0.7rem]"></i>
+            </button>
+
+            <a
+              href="https://www.youtube.com/@proflex_finance"
+              target="_blank"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-500/70 px-6 py-3 text-xs font-semibold tracking-[0.22em] uppercase text-slate-200 hover:border-bh-gold hover:text-bh-gold"
+            >
+              Open Channel
+              <i class="fa-brands fa-youtube text-sm"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: quick stats (static summary, can tweak numbers later) -->
+        <div class="glass rounded-3xl px-5 sm:px-7 py-6 sm:py-8 border border-slate-600/50">
+          <p class="text-[0.65rem] tracking-[0.25em] uppercase text-slate-400 mb-4">
+            LIBRARY SNAPSHOT
+          </p>
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-bh-gold">35+</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                Sessions
+              </div>
+            </div>
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-slate-100">4</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                Playlists
+              </div>
+            </div>
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-slate-100">Macro</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                & Options Focus
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <main id="video-section" class="pb-20 sm:pb-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-8">
+      <!-- Controls -->
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="font-serif text-2xl sm:text-3xl text-slate-50">
+          Browse all sessions
+        </h2>
+
+        <div class="flex flex-1 sm:flex-none gap-3 sm:justify-end">
+          <div class="relative flex-1 max-w-md">
+            <span class="absolute inset-y-0 left-3 flex items-center text-slate-500 text-xs">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search by title or topic"
+              class="w-full rounded-full bg-slate-900/80 border border-slate-600/70 pl-9 pr-4 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-bh-gold/70"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div id="filterBar" class="flex flex-wrap gap-2 text-[0.7rem]"></div>
+
+      <!-- Layout: Featured + Grid -->
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <!-- Featured Player -->
+        <section class="glass rounded-3xl border border-slate-700/70 overflow-hidden flex flex-col">
+          <div class="aspect-video bg-black">
+            <iframe
+              id="featuredIframe"
+              src=""
+              title="Featured Proflex video"
+              class="w-full h-full border-0"
+              allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </div>
+
+          <div class="p-4 sm:p-6 space-y-2">
+            <p
+              id="featuredPlaylist"
+              class="text-[0.65rem] tracking-[0.25em] uppercase text-bh-gold"
+            ></p>
+            <h3
+              id="featuredTitle"
+              class="font-serif text-lg sm:text-xl text-slate-50"
+            ></h3>
+            <p id="featuredMeta" class="text-[0.7rem] text-slate-400"></p>
+
+            <a
+              id="featuredWatchLink"
+              href="#"
+              target="_blank"
+              class="inline-flex items-center gap-2 text-[0.72rem] tracking-[0.22em] uppercase text-slate-300 hover:text-bh-gold"
+            >
+              Open on YouTube
+              <i class="fa-solid fa-arrow-up-right-from-square text-[0.6rem]"></i>
+            </a>
+          </div>
+        </section>
+
+        <!-- Grid -->
+        <section
+          class="glass rounded-3xl border border-slate-700/70 p-3 sm:p-4 max-h-[640px] overflow-y-auto"
+        >
+          <div
+            id="videoGrid"
+            class="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-1"
+          ></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 text-center text-[0.7rem] text-slate-500">
+    © 2025 Proflex Finance LLC. All rights reserved.
+  </footer>
+
+  <script>
+    const PLAYLIST_LABELS = {
+      "Proflex Macro Discussions": "Macro & Markets",
+      "Trading Fundamentals Playbook": "Trading Fundamentals",
+      "Proflex Solutions": "Proflex Solutions",
+      "Options trading techniques": "Options Techniques",
+    };
+
+    function secondsToLabel(sec) {
+      if (sec == null || isNaN(sec)) return "";
+      sec = parseInt(sec, 10);
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      if (h > 0) return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      return `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+    let allVideos = [];
+    let filteredVideos = [];
+    let activeFilter = "All";
+    let searchQuery = "";
+
+    const filterBar = document.getElementById("filterBar");
+    const videoGrid = document.getElementById("videoGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    const featuredIframe = document.getElementById("featuredIframe");
+    const featuredTitle = document.getElementById("featuredTitle");
+    const featuredPlaylist = document.getElementById("featuredPlaylist");
+    const featuredMeta = document.getElementById("featuredMeta");
+    const featuredWatchLink = document.getElementById("featuredWatchLink");
+
+    function buildFilters() {
+      const playlists = Array.from(
+        new Set(allVideos.map((v) => v.playlist))
+      );
+
+      filterBar.innerHTML = "";
+
+      const filters = ["All", ...playlists];
+
+      filters.forEach((label) => {
+        const button = document.createElement("button");
+        button.className =
+          "chip px-3 py-1 flex items-center gap-2 border text-slate-300 hover:border-bh-gold/80 hover:text-bh-gold";
+        button.textContent =
+          label === "All" ? "All Sessions" : (PLAYLIST_LABELS[label] || label);
+
+        button.dataset.filter = label;
+
+        if (label === activeFilter) {
+          button.classList.add("chip-active");
+        }
+
+        button.addEventListener("click", () => {
+          activeFilter = label;
+          buildFilters();
+          applyFilters();
+        });
+
+        filterBar.appendChild(button);
+      });
+    }
+
+    function applyFilters() {
+      const q = searchQuery.trim().toLowerCase();
+
+      filteredVideos = allVideos.filter((v) => {
+        const matchesFilter =
+          activeFilter === "All" ? true : v.playlist === activeFilter;
+
+        const matchesSearch =
+          !q ||
+          v.title.toLowerCase().includes(q) ||
+          (PLAYLIST_LABELS[v.playlist] || v.playlist)
+            .toLowerCase()
+            .includes(q);
+
+        return matchesFilter && matchesSearch;
+      });
+
+      renderGrid();
+
+      if (filteredVideos.length > 0) {
+        setFeatured(filteredVideos[0], false);
+      }
+    }
+
+    function renderGrid() {
+      videoGrid.innerHTML = "";
+
+      filteredVideos.forEach((video) => {
+        const card = document.createElement("article");
+        card.className =
+          "video-card border border-slate-700/70 bg-slate-900/70 flex gap-3 sm:gap-4";
+
+        card.innerHTML = `
+          <div class="relative w-32 sm:w-40 flex-shrink-0">
+            <img
+              src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg"
+              alt="${video.title}"
+              class="video-thumb w-full h-full rounded-l-2xl sm:rounded-2xl"
+              loading="lazy"
+            />
+            ${
+              video.duration
+                ? `<span class="absolute bottom-1 right-1 rounded-full bg-black/80 text-[0.65rem] px-2 py-[2px] text-slate-100">
+                    ${video.duration}
+                  </span>`
+                : ""
+            }
+          </div>
+          <div class="flex flex-col justify-between py-2 pr-2 sm:py-3 sm:pr-3">
+            <div class="space-y-1">
+              <p class="text-[0.65rem] tracking-[0.22em] uppercase text-bh-gold">
+                ${PLAYLIST_LABELS[video.playlist] || video.playlist}
+              </p>
+              <h3 class="text-xs sm:text-[0.85rem] font-medium text-slate-100 line-clamp-2">
+                ${video.title}
+              </h3>
+            </div>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-[0.65rem] text-slate-500">
+                Watch session
+              </span>
+              <i class="fa-solid fa-play text-[0.55rem] text-slate-300"></i>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          setFeatured(video, true);
+        });
+
+        videoGrid.appendChild(card);
+      });
+
+      if (filteredVideos.length === 0) {
+        videoGrid.innerHTML =
+          '<p class="text-[0.8rem] text-slate-400 px-1">No videos match this search yet.</p>';
+      }
+    }
+
+    function setFeatured(video, scrollIntoView = false) {
+      if (!video || !video.id) return;
+
+      const embedUrl = `https://www.youtube.com/embed/${video.id}`;
+      if (featuredIframe.src !== embedUrl) {
+        featuredIframe.src = embedUrl;
+      }
+
+      featuredTitle.textContent = video.title;
+      featuredPlaylist.textContent =
+        PLAYLIST_LABELS[video.playlist] || video.playlist;
+
+      const lengthLabel = video.duration ? ` · ${video.duration}` : "";
+      featuredMeta.textContent = `Proflex Finance${lengthLabel}`;
+
+      featuredWatchLink.href = video.url || `https://www.youtube.com/watch?v=${video.id}`;
+
+      if (scrollIntoView) {
+        document
+          .getElementById("video-section")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch(
+          "https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/combined_videos.json"
+        );
+        if (!res.ok) {
+          console.error("Failed to load combined_videos.json from HubSpot");
+          return;
+        }
+        const raw = await res.json();
+
+        allVideos = raw
+          .map((item) => ({
+            id: item.video_id,
+            title: item.title || "",
+            playlist: item.playlist_name || "",
+            url: item.url || "",
+            duration: secondsToLabel(item.duration),
+          }))
+          .filter((v) => v.id && v.title);
+
+        allVideos.sort((a, b) =>
+          (b.playlist || "").localeCompare(a.playlist || "")
+        );
+
+        buildFilters();
+        applyFilters();
+      } catch (err) {
+        console.error("Error loading data", err);
+      }
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value || "";
+      applyFilters();
+    });
+
+    document.addEventListener("DOMContentLoaded", loadData);
+  </script>
+</body>
+</html>

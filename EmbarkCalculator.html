@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Embark Exchange Fund Calculator</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      overflow-x:hidden;background:#000;color:#111827;
+    }
+
+    /* MOBILE TOP HEADER (Embark logo) */
+    .mobile-header{display:none;background:#000;padding:10px 16px;align-items:center;justify-content:flex-start}
+    .mobile-header img{height:26px;width:auto;display:block}
+
+    /* Mobile strip */
+    .mobile-strip{display:none;background:#000;color:#F9FAFB;padding:8px 16px 10px;font-size:13px}
+    .mobile-strip-label{text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:#9CA3AF;display:block;margin-bottom:2px}
+    .mobile-strip-value{color:#FBBF24;font-weight:500}
+    .mobile-strip-edit{float:right;font-size:11px;color:#E5E5E5;text-decoration:underline;cursor:pointer;margin-top:2px}
+
+    .container{display:flex;min-height:100vh;max-height:100vh}
+
+    /* LEFT SECTION (desktop hero + sidebar) */
+    .left-section{width:40%;min-width:340px;background:#000;position:relative;overflow:hidden;display:flex;align-items:stretch;justify-content:center}
+    .animated-bg{position:absolute;width:100%;height:100%}
+
+    /* Replace floating tiles with a single professional image (no JS impact) */
+    .hero-img{
+      position:absolute;inset:0;background:url('https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/pexels-pixabay-372462.jpg') center/cover no-repeat;
+      opacity:.35;filter:grayscale(20%) contrast(1.1);
+    }
+
+    .sidebar-info{position:relative;z-index:10;width:100%;padding:32px 32px 20px;display:none;flex-direction:column;justify-content:flex-start;color:#F9FAFB;background:#000}
+    .sidebar-info.active{display:flex}
+    .brand-row{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+    .brand-logo{height:32px;display:flex;align-items:center}
+    .brand-logo img{max-height:100%;width:auto;display:block;filter:invert(1)}
+    .brand-name{font-size:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    .info-group{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #202124}
+    .info-group:last-child{border-bottom:none}
+    .info-label{font-size:10px;color:#9CA3AF;margin-bottom:4px;letter-spacing:.08em;text-transform:uppercase}
+    .info-value{font-size:18px;font-weight:500}
+
+    /* NEW: Styles for sidebar inputs */
+    .info-group-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #202124;
+      margin-bottom: 16px;
+    }
+    .info-group-input .info-label {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-input {
+      font-size: 18px;
+      font-weight: 500;
+      background: #202124;
+      color: #F9FAFB;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 4px 8px;
+      width: 70px;
+      text-align: right;
+      -moz-appearance: textfield; /* Firefox */
+    }
+    .sidebar-input::-webkit-outer-spin-button,
+    .sidebar-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .input-wrapper span {
+      font-size: 18px;
+      font-weight: 500;
+      color: #9CA3AF;
+    }
+
+
+    .green-notification{background:#16A34A;border-radius:0;margin:0 -32px 16px;padding:10px 32px;color:#fff;display:none;align-items:center;gap:10px}
+    .green-notification .check-icon{width:22px;height:22px;border-radius:50%;background:#fff;color:#16A34A;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .green-notification .notification-text{font-size:13px;font-weight:500}
+
+    .disclaimer{font-size:9px;color:#6B7280;line-height:1.6;margin-top:auto}
+    .disclaimer a{color:#9CA3AF;text-decoration:underline}
+
+    /* RIGHT SECTION */
+    .right-section{flex:1;background:#FAFAF8;padding:48px 72px 32px;display:flex;flex-direction:column;max-height:100vh;overflow-y:auto}
+    .step{display:none;animation:fadeIn .4s ease-in}
+    .step.active{display:flex;flex-direction:column;flex:1}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    .step-header{margin-bottom:28px;max-width:720px}
+    .step-subtitle{color:#C9945E;font-size:13px;font-weight:600;margin-bottom:8px;letter-spacing:.14em;text-transform:uppercase}
+    .step-title{font-size:34px;font-weight:700;line-height:1.3;color:#000;margin-bottom:10px}
+    .step-description{font-size:17px;line-height:1.6;color:#374151}
+
+    .highlight,.highlight-orange,.highlight-tan,.highlight-green{padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap;color:#fff}
+    .highlight{background:#4CAF50}
+    .highlight-orange{background:#E07A47}
+    .highlight-tan{background:#D4A574}
+    .highlight-green{background:#16A34A}
+
+    /* NEW: Styles for check/x icons */
+    .check-icon-svg, .x-icon-svg {
+       display: inline-block;
+       width: 18px;
+       height: 18px;
+       margin-right: 8px;
+       vertical-align: -4px; /* Align icon better with text */
+    }
+    .check-icon-svg { color: #16A34A; }
+    .x-icon-svg { color: #DC2626; }
+
+    .form-group{margin-bottom:24px}
+    .form-label{font-size:15px;font-weight:600;color:#000;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .info-icon{width:18px;height:18px;border:2px solid #999;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#999}
+    .search-wrapper{position:relative}
+    .form-input{width:100%;padding:14px 18px;border:none;border-bottom:2px solid #DDD;background:transparent;font-size:16px;color:#000;outline:none;transition:border-color .3s}
+    .form-input:focus{border-bottom-color:#000}
+    .form-input::placeholder{color:#9CA3AF}
+    select.form-input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:48px}
+    select.form-input option{padding:10px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .auto-value{font-size:14px;color:#16A34A;margin-top:6px;font-weight:600}
+    .loading-price{color:#9CA3AF;font-style:italic}
+
+    /* SCENARIO TABS */
+    .scenario-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid #E5E7EB}
+    .scenario-tab{padding:12px 24px;background:transparent;border:none;border-bottom:3px solid transparent;font-size:15px;font-weight:600;color:#6B7280;cursor:pointer;transition:all .3s}
+    .scenario-tab.active{color:#000;border-bottom-color:#C9945E}
+    .scenario-tab:hover{color:#000}
+    .scenario-content{display:none}
+    .scenario-content.active{display:block}
+
+    /* CHARTS */
+    .chart-section{flex:1;display:flex;align-items:center;justify-content:center;margin:18px 0 20px}
+    .chart-container{display:flex;gap:40px;align-items:flex-end;width:100%;max-width:900px}
+    .chart-column{flex:1;display:flex;flex-direction:column}
+    .chart-label{font-size:14px;color:#5B7C9F;margin-bottom:6px;font-weight:600;letter-spacing:.02em}
+    .chart-column:nth-child(2) .chart-label{color:#C9945E}
+    .chart-column:nth-child(3) .chart-label{color:#D4A574}
+    .chart-value{font-size:28px;font-weight:700;margin-bottom:12px;letter-spacing:-.02em}
+    .chart-value.blue{color:#5B7C9F}
+    .chart-value.tan{color:#C9945E}
+    .chart-value.gray{color:#6B7280}
+    .chart-value.red{color:#DC2626}
+
+    /* UPDATED: Bar container style */
+    .chart-bars{
+      display:flex; flex-direction:column; gap:0; border-radius:12px;
+      overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.08);
+      min-height: 200px; /* Container has min-height */
+    }
+
+    /* UPDATED: Bar styles */
+    .chart-bar{
+      padding:32px 20px; color:#fff; font-size:14px; font-weight:600;
+      overflow:hidden; transition:all .5s ease; display:flex; align-items:center;
+      justify-content:center; text-align:center;
+      min-height: 200px; /* Default min-height for single bars */
+      height: 100%; /* Allow single bars to fill container */
+    }
+
+    /* UPDATED: Override for stacked bars */
+    .chart-bars .chart-bar {
+      min-height: 0; /* Remove min-height */
+      height: auto; /* Allow height to be set by flex-grow */
+      border-radius: 0; /* Remove individual radius */
+    }
+
+    .bar-blue{background:#6089BC}
+    .bar-tan{background:#C9A97A}
+    .bar-orange{background:#E07A47}
+    .bar-gray{background:#9CA3AF}
+    .bar-red{background:#DC2626}
+
+    .bar-animated{animation:slideIn .8s ease-out}
+    @keyframes slideIn{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
+
+    /* TABLES */
+    .income-table,.summary-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:20px;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden; table-layout: fixed;}
+    .income-table thead{background:linear-gradient(135deg,#1a8a96,#2ba3b0)}
+    .summary-table thead{background:#111827;}
+
+    .income-table th{padding:20px 24px;text-align:left;font-weight:600;font-size:15px;color:#fff;border-bottom:2px solid rgba(255,255,255,.1)}
+    .summary-table th{padding:20px 24px;text-align:left;font-weight:600;font-size:15px;color:#fff;border-bottom:2px solid rgba(255,255,255,.1)}
+
+    .income-table td,.summary-table td{padding:18px 24px;border-top:1px solid #F3F4F6;font-size:16px;vertical-align:middle}
+    .income-table tbody tr:hover,.summary-table tbody tr:hover{background:#F9FAFB;transition:background .2s}
+    .income-table td:first-child,.summary-table td:first-child{font-weight:600;color:#374151;font-size:15px}
+
+    .income-table td:not(:first-child){font-weight:700;color:#111827;font-size:17px}
+    .summary-table td:not(:first-child){font-weight:500;color:#111827;font-size:16px}
+
+    .income-table .zero-income{color:#9CA3AF;font-weight:600}
+    .income-table .positive-income,.summary-table .positive-income{color:#16A34A;font-weight:700}
+
+    .summary-table th:first-child{width:30%;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+    .summary-table tbody tr:last-child{border-top:3px solid #E5E7EB;background:#FAFAF8}
+    .summary-table tbody tr:last-child td{padding-top:20px;padding-bottom:20px;font-size:18px}
+    .tax-note{font-size:11px;color:#9CA3AF;display:block;margin-top:4px;font-weight:400}
+    .comparison-badge{display:inline-block;background:linear-gradient(135deg,#E8F5E9,#C8E6C9);color:#2E7D32;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;margin-right:10px;letter-spacing:.02em}
+    .risk-badge{display:inline-block;background:linear-gradient(135deg,#FFEBEE,#FFCDD2);color:#C62828;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;margin-right:10px;letter-spacing:.02em}
+
+    /* UPDATED: Enhanced Step 8 Summary Table */
+    .enhanced-summary-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      table-layout: fixed;
+    }
+
+    .enhanced-summary-table thead {
+      background: linear-gradient(135deg, #2d7a7e, #3a9a9e);
+    }
+
+    .enhanced-summary-table thead th {
+      padding: 24px 20px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+
+    .enhanced-summary-table thead th:first-child {
+      width: 28%;
+      font-size: 13px;
+    }
+
+    .enhanced-summary-table thead th:last-child {
+      border-right: none;
+      background: linear-gradient(135deg, #358a8e, #42a9ad);
+    }
+
+    .enhanced-summary-table tbody td {
+      padding: 20px;
+      border-top: 1px solid #E5E7EB;
+      font-size: 15px;
+      vertical-align: middle;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .enhanced-summary-table tbody td:first-child {
+      font-weight: 700;
+      color: #1F2937;
+      font-size: 15px;
+      background: #F9FAFB;
+    }
+
+    .enhanced-summary-table tbody td:last-child {
+      border-right: none;
+      background: #F0FDF4;
+      font-weight: 600;
+    }
+
+    .enhanced-summary-table tbody tr:hover {
+      background: #FAFBFC;
+    }
+
+    .enhanced-summary-table tbody tr:hover td:first-child {
+      background: #F3F4F6;
+    }
+
+    .enhanced-summary-table tbody tr:hover td:last-child {
+      background: #DCFCE7;
+    }
+
+    .enhanced-summary-table .icon-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* NAV BUTTONS */
+    .nav-buttons{display:flex;justify-content:space-between;margin-top:auto;padding-top:24px;gap:12px}
+    .btn{padding:12px 26px;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+    .btn-primary{background:#000;color:#fff}
+    .btn-primary:hover{background:#333;transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.18)}
+    .btn-secondary{background:transparent;color:#6B7280}
+    .btn-secondary:hover{color:#000}
+    .btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none;transform:none}
+
+    /* Chat icon (decorative) */
+    .chat-button{position:fixed;bottom:24px;left:24px;width:54px;height:54px;background:#5B7C9F;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:900}
+    .chat-button:hover{transform:scale(1.08);transition:transform .3s}
+
+    /* SURVEY OVERLAY */
+    .survey-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:1000}
+    .survey-overlay.active{display:flex}
+    .survey-modal{position:relative;background:#fff;border-radius:20px;padding:24px 24px 18px;width:100%;max-width:520px;box-shadow:0 18px 60px rgba(0,0,0,.25);animation:fadeIn .25s ease-out; max-height: 90vh; overflow-y: auto;}
+    .survey-header{font-size:22px;font-weight:700;margin-bottom:4px;color:#111827}
+    .survey-subtitle{font-size:14px;color:#6B7280;margin-bottom:14px}
+    .survey-close{position:absolute;top:10px;right:16px;font-size:20px;color:#9CA3AF;cursor:pointer}
+
+    /* HubSpot form style hook */
+    .embark-hs-form .hs-form-field label{font-size:13px;font-weight:600;color:#111827}
+    .embark-hs-form .input input,.embark-hs-form .input select{width:100%!important;padding:9px 10px;border-radius:10px;border:1px solid #D1D5DB;font-size:14px}
+    .embark-hs-form .hs-button.primary,.embark-hs-form input[type=submit]{background:#111827;border-radius:999px;padding:9px 24px;font-weight:600;font-size:13px}
+    .embark-hs-form .hs-button.primary:hover,.embark-hs-form input[type=submit]:hover{background:#000}
+
+    /* RESPONSIVE: MOBILE WALKTHROUGH */
+    @media (max-width:768px){
+      body{background:#FAFAF8;color:#111827}
+      .mobile-header{display:flex}
+      .container{flex-direction:column;max-height:none}
+      .left-section{display:none}
+      .right-section{width:100%;padding:24px 16px 92px;max-height:none;overflow:visible}
+      .step-header{margin-bottom:20px}
+      .step-title{font-size:28px}
+      .step-description{font-size:15px}
+      .form-row{grid-template-columns:1fr;gap:20px}
+
+      /* Charts: stack, full width, no clipping */
+      .chart-section{margin:10px 0 14px}
+      .chart-container{flex-direction:column;align-items:stretch;gap:16px;max-width:100%}
+      .chart-column{width:100%}
+      .chart-value{font-size:24px}
+      .chart-bars{border-radius:16px}
+      .chart-bar{min-height:140px;border-radius:16px}
+      .chart-bars .chart-bar { min-height: 0; }
+
+      /* Tabs scroll if needed */
+      .scenario-tabs{overflow-x:auto;flex-wrap:nowrap}
+      .scenario-tab{padding:10px 16px;white-space:nowrap}
+
+      /* Tables: smaller padding & make scrollable to avoid cut-offs */
+      .income-table th,.summary-table th,.enhanced-summary-table th{padding:14px 16px;font-size:14px}
+      .income-table td,.summary-table td,.enhanced-summary-table td{padding:14px 16px;font-size:15px}
+      .income-table,.summary-table,.enhanced-summary-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch; table-layout: auto;}
+
+      /* Bottom bar spacing for fixed buttons */
+      .nav-buttons{position:fixed;left:0;right:0;bottom:0;padding:10px 16px 14px;background:#FAFAF8;border-top:1px solid #E5E7EB;gap:10px;z-index:500}
+      .btn{flex:1;justify-content:center;border-radius:999px}
+      .btn-secondary{background:#E5E7EB;color:#111827}
+      .btn-secondary:hover{background:#D1D5DB}
+
+      .chat-button{display:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header">
+    <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/Embark%20Funds%20Logo.webp" alt="Embark Funds">
+  </div>
+  <div id="mobileStrip" class="mobile-strip"></div>
+
+  <div class="container">
+    <!-- LEFT SECTION (desktop) -->
+    <div class="left-section">
+      <div class="hero-img" aria-hidden="true"></div>
+
+      <div class="sidebar-info" id="sidebarInfo">
+        <div class="brand-row">
+          <div class="brand-logo">
+            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/Embark%20Funds%20Logo.webp" alt="Embark Funds">
+          </div>
+          <div class="brand-name">Embark</div>
+        </div>
+
+        <div class="info-group"><div class="info-label">Your stock</div><div class="info-value" id="sidebarStock">–</div></div>
+        <div class="info-group"><div class="info-label">Number of shares</div><div class="info-value" id="sidebarShares">–</div></div>
+        <div class="info-group"><div class="info-label">Stock price</div><div class="info-value" id="sidebarPrice">–</div></div>
+        <div class="info-group"><div class="info-label">Total value</div><div class="info-value" id="sidebarValue">–</div></div>
+        <div class="info-group"><div class="info-label">Cost basis (per share)</div><div class="info-value" id="sidebarCostPerShare">–</div></div>
+        <div class="info-group"><div class="info-label">Total cost basis</div><div class="info-value" id="sidebarCost">–</div></div>
+
+        <!-- Interactive Inputs -->
+        <div class="info-group-input">
+          <label class="info-label" for="inputGrowthRate">Growth rate (assumed)</label>
+          <div class="input-wrapper">
+            <input type="number" class="sidebar-input" id="inputGrowthRate" value="10" step="1">
+            <span>%</span>
+          </div>
+        </div>
+        <div class="info-group-input">
+          <label class="info-label" for="inputIncomeRate">Embark income rate</label>
+          <div class="input-wrapper">
+            <input type="number" class="sidebar-input" id="inputIncomeRate" value="10" step="1">
+            <span>%</span>
+          </div>
+        </div>
+        <div class="info-group-input">
+          <label class="info-label" for="inputEntryTax">Entry Tax Rate</label>
+          <div class="input-wrapper">
+            <input type="number" class="sidebar-input" id="inputEntryTax" value="35" step="1">
+            <span>%</span>
+          </div>
+        </div>
+
+        <div class="green-notification" id="greenNotification">
+          <div class="check-icon">✓</div>
+          <div class="notification-text">Your position appears to be a potential fit for Embark.</div>
+        </div>
+
+        <div class="disclaimer">Simulated outputs for illustrative purposes only. Assumes stated rates and growth; ignores fees and individual circumstances and is not tax, legal, or investment advice.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT SECTION (steps) -->
+    <div class="right-section">
+      <!-- STEP 1 -->
+      <div class="step active" id="step1">
+        <div class="step-header">
+          <div class="step-subtitle">Embark Calculator</div>
+          <h1 class="step-title">Start getting paid immediately without selling your stock</h1>
+          <p class="step-description">Enter your stock position details to see how Embark generates income while preserving your upside—without triggering a taxable event.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Select your stock <span class="info-icon">ⓘ</span></label>
+          <select class="form-input" id="stockTicker">
+            <option value="">Select a stock...</option>
+            <option value="NVDA">NVDA – NVIDIA Corporation</option>
+            <option value="AAPL">AAPL – Apple Inc.</option>
+            <option value="MSFT">MSFT – Microsoft Corporation</option>
+            <option value="GOOGL">GOOGL – Alphabet Inc.</option>
+            <option value="AMZN">AMZN – Amazon.com Inc.</option>
+            <option value="META">META – Meta Platforms Inc.</option>
+            <option value="TSLA">TSLA – Tesla Inc.</option>
+          </select>
+          <div class="auto-value" id="priceDisplay"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Number of shares</label>
+            <input type="number" class="form-input" id="numShares" placeholder="e.g. 1000">
+            <div class="auto-value" id="totalValueDisplay"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost basis (per share) <span class="info-icon">ⓘ</span></label>
+            <input type="number" class="form-input" id="costBasisPerShare" placeholder="e.g. 50.00">
+            <div class="auto-value" id="totalCostDisplay"></div>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <div></div>
+          <button class="btn btn-primary" onclick="goToStep(4)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" id="step4">
+        <div class="step-header">
+          <h1 class="step-title">Capital appreciation after 3 years</h1>
+          <p class="step-description">Now let's compare how your position grows. With <span id="stockDisplay2">stock</span> assumed to grow at <span id="growthRateDisplay">10%</span> per year, here's how the three scenarios compare after 3 years.</p>
+        </div>
+
+        <div class="chart-section">
+          <div class="chart-container">
+            <div class="chart-column">
+              <div class="chart-label">Hold</div>
+              <div class="chart-value gray" id="holdThreeYear">–</div>
+              <div class="chart-bar bar-gray" id="holdThreeYearBar" style="border-radius: 12px;">–</div>
+            </div>
+
+            <div class="chart-column">
+              <div class="chart-label">Sell & Diversify</div>
+              <div class="chart-value blue" id="sellThreeYear">–</div>
+              <div class="chart-bars">
+                <div class="chart-bar bar-blue" id="sellThreeYearBar" style="flex-grow: 1;">–</div>
+                <div class="chart-bar bar-orange" id="sellThreeYearTax" style="flex-grow: 1;">–</div>
+              </div>
+            </div>
+
+            <div class="chart-column">
+              <div class="chart-label">Embark</div>
+              <div class="chart-value tan" id="embarkThreeYearCapital">–</div>
+              <div class="chart-bar bar-tan" id="embarkThreeYearCapitalBar" style="border-radius: 12px;">–</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goToStep(1)">← Prev</button>
+          <button class="btn btn-primary" onclick="goToStep(5)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step" id="step5">
+        <div class="step-header">
+          <h1 class="step-title">What if your stock goes down?</h1>
+          <p class="step-description">This is the biggest concern for most investors. Let's examine what happens in both scenarios: if your stock declines or if it continues to grow.</p>
+        </div>
+
+        <div class="scenario-tabs">
+          <button class="scenario-tab active" onclick="switchScenario('negative', event)">Stock Goes Down (-20%)</button>
+          <button class="scenario-tab" onclick="switchScenario('positive', event)">Stock Goes Up (+10%)</button>
+        </div>
+
+        <div class="scenario-content active" id="negativeScenario">
+          <div style="margin-bottom:20px;">
+            <p style="font-size:16px;color:#374151;line-height:1.6;">
+              If your <span id="stockDisplay3">stock</span> drops 20%, here's what happens in each scenario. <span class="highlight-orange">This is the worst-case scenario</span> and shows why Embark provides protection through diversification and income.
+            </p>
+          </div>
+
+          <div class="chart-section">
+            <div class="chart-container">
+              <div class="chart-column">
+                <div class="chart-label">Hold (down 20%)</div>
+                <div class="chart-value red" id="holdNegative">–</div>
+                <div class="chart-bar bar-red" id="holdNegativeBar" style="border-radius: 12px;">–</div>
+              </div>
+              <div class="chart-column">
+                <div class="chart-label">Sell & Diversify</div>
+                <div class="chart-value blue" id="sellNegative">–</div>
+                <div class="chart-bar bar-blue" id="sellNegativeBar" style="border-radius: 12px;">–</div>
+              </div>
+              <div class="chart-column">
+                <div class="chart-label">Embark</div>
+                <div class="chart-value tan" id="embarkNegative">–</div>
+                <div class="chart-bar bar-tan" id="embarkNegativeBar" style="border-radius: 12px;">–</div>
+              </div>
+            </div>
+          </div>
+
+          <table class="summary-table" style="margin-top:24px;">
+            <thead><tr><th></th><th>Hold</th><th>Sell & Diversify</th><th>Embark</th></tr></thead>
+            <tbody>
+              <tr><td>Capital value after 3 years</td><td><span class="risk-badge">-20%</span><span id="holdNegativeValue">–</span></td><td id="sellNegativeValue">–</td><td id="embarkNegativeValue">–</td></tr>
+              <tr><td>Total income received</td><td class="zero-income">$0</td><td class="zero-income">$0</td><td class="positive-income" id="embarkNegativeIncome">–</td></tr>
+              <tr><td><strong>Total position value</strong></td><td><strong id="holdNegativeTotal">–</strong></td><td><strong id="sellNegativeTotal">–</strong></td><td><span class="comparison-badge">Best</span><strong id="embarkNegativeTotal">–</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="scenario-content" id="positiveScenario">
+          <div style="margin-bottom:20px;">
+            <p style="font-size:16px;color:#374151;line-height:1.6;">
+              If your <span id="stockDisplay4">stock</span> continues to grow at 10% per year, here's how the three scenarios compare after 3 years. Embark provides both income and capital appreciation.
+            </p>
+          </div>
+
+          <div class="chart-section">
+            <div class="chart-container">
+              <div class="chart-column">
+                <div class="chart-label">Hold</div>
+                <div class="chart-value gray" id="holdPositive">–</div>
+                <div class="chart-bar bar-gray" id="holdPositiveBar" style="border-radius: 12px;">–</div>
+              </div>
+              <div class="chart-column">
+                <div class="chart-label">Sell & Diversify</div>
+                <div class="chart-value blue" id="sellPositive">–</div>
+                <div class="chart-bar bar-blue" id="sellPositiveBar" style="border-radius: 12px;">–</div>
+              </div>
+              <div class="chart-column">
+                <div class="chart-label">Embark</div>
+                <div class="chart-value tan" id="embarkPositive">–</div>
+                <div class="chart-bar bar-tan" id="embarkPositiveBar" style="border-radius: 12px;">–</div>
+              </div>
+            </div>
+          </div>
+
+          <table class="summary-table" style="margin-top:24px;">
+            <thead><tr><th></th><th>Hold</th><th>Sell & Diversify</th><th>Embark</th></tr></thead>
+            <tbody>
+              <tr><td>Capital value after 3 years</td><td><span class="comparison-badge">+33%</span><span id="holdPositiveValue">–</span></td><td id="sellPositiveValue">–</td><td id="embarkPositiveValue">–</td></tr>
+              <tr><td>Total income received</td><td class="zero-income">$0</td><td class="zero-income">$0</td><td class="positive-income" id="embarkPositiveIncome">–</td></tr>
+              <tr><td><strong>Total position value</strong></td><td><strong id="holdPositiveTotal">–</strong></td><td><strong id="sellPositiveTotal">–</strong></td><td><span class="comparison-badge">Best</span><strong id="embarkPositiveTotal">–</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goToStep(4)">← Prev</button>
+          <button class="btn btn-primary" onclick="goToStep(6)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step" id="step6">
+        <div class="step-header">
+          <h1 class="step-title">Long-term outlook: 10 years at 10% return</h1>
+          <p class="step-description">Over 10 years with a 10% annual return, you'll have received significant income from Embark. At this baseline scenario, <span class="highlight-green" id="tenYearIncomeBaseline">–</span> in total income has been paid out—essentially recovering your entire initial investment through income alone.</p>
+        </div>
+
+        <table class="summary-table">
+          <thead><tr><th></th><th>Hold</th><th>Sell & Diversify</th><th>Embark</th></tr></thead>
+          <tbody>
+            <tr><td>Initial value</td><td id="tenYearInitialHold">–</td><td id="tenYearInitialSell">–</td><td id="tenYearInitialEmbark">–</td></tr>
+            <tr><td>Capital value (after 10 years)</td><td id="tenYearCapitalHold">–</td><td id="tenYearCapitalSell">–</td><td id="tenYearCapitalEmbark">–</td></tr>
+            <tr><td>Total income received</td><td class="zero-income">$0</td><td class="zero-income">$0</td><td class="positive-income" id="tenYearIncomeEmbark">–</td></tr>
+            <tr><td><strong>Total value (capital + income)</strong></td><td><strong id="tenYearTotalHold">–</strong></td><td><strong id="tenYearTotalSell">–</strong></td><td><span class="comparison-badge">Highest</span><strong id="tenYearTotalEmbark">–</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goToStep(5)">← Prev</button>
+          <button class="btn btn-primary" onclick="goToStep(7)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step" id="step7">
+        <div class="step-header">
+          <h1 class="step-title">Accelerated scenario: 5 years at 15% return</h1>
+          <p class="step-description">If we assume a higher return rate of 15% annually (more aggressive but achievable for growth stocks), you recover your initial investment even faster. After just 5 years, <span class="highlight-green" id="fiveYearIncomeAccel">–</span> in income has been distributed—meaning you've essentially gotten all your cash back while still holding your position.</p>
+        </div>
+
+        <table class="summary-table">
+          <thead><tr><th></th><th>Hold</th><th>Sell & Diversify</th><th>Embark (15% scenario)</th></tr></thead>
+          <tbody>
+            <tr><td>Initial value</td><td id="fiveYearInitialHold">–</td><td id="fiveYearInitialSell">–</td><td id="fiveYearInitialEmbark">–</td></tr>
+            <tr><td>Capital value (after 5 years)</td><td id="fiveYearCapitalHold">–</td><td id="fiveYearCapitalSell">–</td><td id="fiveYearCapitalEmbark">–</td></tr>
+            <tr><td>Total income received</td><td class="zero-income">$0</td><td class="zero-income">$0</td><td class="positive-income" id="fiveYearIncomeEmbark">–</td></tr>
+            <tr><td><strong>Total value (capital + income)</strong></td><td><strong id="fiveYearTotalHold">–</strong></td><td><strong id="fiveYearTotalSell">–</strong></td><td><span class="comparison-badge">Highest</span><strong id="fiveYearTotalEmbark">–</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goToStep(6)">← Prev</button>
+          <button class="btn btn-primary" onclick="goToStep(8)">Summary →</button>
+        </div>
+      </div>
+
+      <!-- STEP 8 - ENHANCED -->
+      <div class="step" id="step8">
+        <div class="step-header">
+          <h1 class="step-title">Why Embark is the smart choice</h1>
+          <p class="step-description">Embark solves your two biggest concerns: getting paid now and protecting against downside risk—all without selling your stock.</p>
+        </div>
+
+        <table class="enhanced-summary-table">
+          <thead>
+            <tr>
+              <th>Key Benefit</th>
+              <th>Hold</th>
+              <th>Sell & Diversify</th>
+              <th>Embark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Immediate income</strong></td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="x-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <span>No income</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="x-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <span>No income</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <strong>10% annual income</strong>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Downside protection</strong></td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="x-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Full risk</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Diversified</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <strong>Stock + Diversified Income</strong>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Keep your stock position</strong></td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Yes</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="x-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Must sell</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <strong>Yes</strong>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Tax efficiency</strong></td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>No tax event</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="x-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <span>35% tax immediately</span>
+                </div>
+              </td>
+              <td>
+                <div class="icon-cell">
+                  <svg class="check-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <strong>Tax-deferred</strong>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>3-year income total</strong></td>
+              <td>$0</td>
+              <td>$0</td>
+              <td class="positive-income" id="summaryThreeYearIncome" style="font-weight: 700; font-size: 17px;">–</td>
+            </tr>
+            <tr>
+              <td><strong>Time to recover investment</strong></td>
+              <td>–</td>
+              <td>–</td>
+              <td><strong style="color: #16A34A;">5-10 years through income</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:32px;padding:28px;background:linear-gradient(135deg, #F0FDF4, #DCFCE7);border-radius:12px;border-left: 4px solid #16A34A;">
+          <h3 style="font-size:22px;font-weight:700;margin-bottom:14px;color:#111827;">The Bottom Line</h3>
+          <p style="font-size:17px;line-height:1.7;color:#374151;margin-bottom:18px;">
+            <strong>Embark is unique:</strong> You start getting paid immediately—without selling your stock.
+            You get the best of both worlds: <span class="highlight-green">income now</span> plus <span class="highlight-tan">upside potential</span> plus <span class="highlight-orange">diversification benefits</span>.
+          </p>
+          <p style="font-size:16px;color:#1F2937;line-height:1.6;">
+            Most people want to hold their stock but worry about concentration risk. Embark lets you keep your position while addressing both concerns: you get income starting day one, and your portfolio benefits from the fund's diversified structure.
+          </p>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-secondary" onclick="goToStep(7)">← Prev</button>
+          <button class="btn btn-primary" onclick="openSurvey()">Reserve a Spot →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat icon (decorative) -->
+  <div class="chat-button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 2h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7l-5 5V4a2 2 0 0 1 2-2z"/></svg>
+  </div>
+
+  <!-- Survey overlay with HubSpot form -->
+  <div class="survey-overlay" id="surveyOverlay">
+    <div class="survey-modal">
+      <div class="survey-header">Reserve your spot</div>
+      <div class="survey-subtitle">Share a few details and then choose a time with our team to discuss your Embark fit.</div>
+      <div id="hubspotFormContainer"></div>
+      <div class="survey-close" onclick="closeSurvey()">✕</div>
+    </div>
+  </div>
+
+  <!-- HubSpot embed -->
+  <script src="https://js.hsforms.net/forms/embed/v2.js" charset="utf-8"></script>
+
+  <script>
+    let currentStep=1,currentScenarioTab='negative';
+    const ALPHA_VANTAGE_KEY='YS726R3SAKIYBI7W';
+
+    // Growth assumptions by ticker
+    const growthRates={NVDA:.15,TSLA:.15,META:.12,AMZN:.12,GOOGL:.10,MSFT:.10,AAPL:.08};
+
+    const calc={
+      ticker:'',stockPrice:0,numShares:0,totalValue:0,costBasisPerShare:0,totalCostBasis:0,capitalGain:0,
+      entryTaxRate:.35,stockGrowthRate:.10,embarkIncomeRate:.10,diversifiedGrowthRate:.10,exitTaxRate:.23
+    };
+
+    async function fetchStockPrice(ticker){
+      const priceDisplay=document.getElementById('priceDisplay');
+      priceDisplay.innerHTML='<span class="loading-price">Loading live price...</span>';
+      try{
+        const url=`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${ALPHA_VANTAGE_KEY}`;
+        const res=await fetch(url); const data=await res.json();
+        if(data['Global Quote']&&data['Global Quote']['05. price']){
+          const price=parseFloat(data['Global Quote']['05. price']);
+          calc.ticker=ticker; calc.stockPrice=price;
+
+          // Set growth rate input based on ticker
+          const newGrowth = (growthRates[ticker] || 0.10) * 100;
+          document.getElementById('inputGrowthRate').value = newGrowth.toFixed(0);
+
+          priceDisplay.innerHTML=`Current price: <strong>${formatCurrency(price)}</strong> <span style="font-size:12px;color:#6B7280;">(Live)</span>`;
+          priceDisplay.classList.remove('loading-price');
+
+          runLiveUpdate();
+        }else if(data['Note']){
+          priceDisplay.innerHTML='<span style="color:#E07A47;font-size:13px;">⚠ API rate limit reached. Please wait a moment and try again.</span>';
+        }else{
+          throw new Error('Price not available');
+        }
+      }catch(e){
+        console.error(e);
+        priceDisplay.innerHTML='<span class="loading-price">Unable to fetch live price. Please try selecting another stock or refresh the page.</span>';
+      }
+    }
+
+    function formatCurrency(v){
+      return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+    }
+    function formatCurrencyCompact(v){
+      const abs=Math.abs(v),sign=v<0?'-':'';
+      if(abs>=1_000_000)return sign+'$'+(abs/1_000_000).toFixed(2).replace(/\.00$/,'')+'M';
+      if(abs>=1_000)return sign+'$'+(abs/1_000).toFixed(1).replace(/\.0$/,'')+'K';
+      return sign+formatCurrency(abs);
+    }
+    function formatPercent(v){return (v*100).toFixed(0)+'%'}
+
+    // Event listeners for live simulation
+    document.getElementById('stockTicker').addEventListener('change',e=>{
+      const t=e.target.value;
+      if(t){
+        fetchStockPrice(t)
+      } else {
+        calc.ticker = '';
+        calc.stockPrice = 0;
+        document.getElementById('priceDisplay').innerHTML='';
+        runLiveUpdate();
+      }
+    });
+    document.getElementById('numShares').addEventListener('input',runLiveUpdate);
+    document.getElementById('costBasisPerShare').addEventListener('input',runLiveUpdate);
+    document.getElementById('inputGrowthRate').addEventListener('input', runLiveUpdate);
+    document.getElementById('inputIncomeRate').addEventListener('input', runLiveUpdate);
+    document.getElementById('inputEntryTax').addEventListener('input', runLiveUpdate);
+
+    function runLiveUpdate(){
+      // Update calc from Step 1
+      calc.numShares = parseFloat(document.getElementById('numShares').value) || 0;
+      calc.costBasisPerShare = parseFloat(document.getElementById('costBasisPerShare').value) || 0;
+
+      if (calc.stockPrice > 0 && calc.numShares > 0) {
+        calc.totalValue = calc.stockPrice * calc.numShares;
+        document.getElementById('totalValueDisplay').innerHTML = `Total value: <strong>${formatCurrency(calc.totalValue)}</strong>`;
+      } else {
+        calc.totalValue = 0;
+        document.getElementById('totalValueDisplay').innerHTML = '';
+      }
+
+      calc.totalCostBasis = calc.costBasisPerShare * calc.numShares;
+      if (calc.numShares > 0 && calc.costBasisPerShare > 0) {
+        document.getElementById('totalCostDisplay').innerHTML = `Total cost basis: <strong>${formatCurrency(calc.totalCostBasis)}</strong>`;
+      } else {
+        document.getElementById('totalCostDisplay').innerHTML = '';
+      }
+
+      // Update calc from Sim Inputs
+      calc.stockGrowthRate = parseFloat(document.getElementById('inputGrowthRate').value) / 100 || 0.10;
+      calc.embarkIncomeRate = parseFloat(document.getElementById('inputIncomeRate').value) / 100 || 0.10;
+      calc.entryTaxRate = parseFloat(document.getElementById('inputEntryTax').value) / 100 || 0.35;
+
+      // Run calculations if data is valid
+      if (calc.ticker && calc.totalValue > 0 && calc.stockPrice > 0) {
+        calculateResults();
+      } else {
+        clearAllDisplays();
+      }
+    }
+
+    function calculateResults(){
+      if(!calc.ticker || calc.totalValue <= 0 || calc.totalCostBasis < 0 || !calc.stockPrice){
+        console.error('Incomplete data for calculation.');
+        return false;
+      }
+
+      calc.capitalGain=calc.totalValue-calc.totalCostBasis;
+
+      // Run all calculations
+      calculateThreeYearScenarios();
+      calculateRiskScenarios();
+      calculateTenYearBaseline();
+      calculateFiveYearAccelerated();
+
+      // Update all UI elements
+      updateAllDisplays();
+      return true;
+    }
+
+    function clearAllDisplays() {
+        // Sidebar
+        document.getElementById('sidebarStock').textContent=calc.ticker||'–';
+        document.getElementById('sidebarShares').textContent=calc.numShares?calc.numShares.toLocaleString():'–';
+        document.getElementById('sidebarPrice').textContent=calc.stockPrice?formatCurrency(calc.stockPrice):'–';
+        document.getElementById('sidebarValue').textContent=calc.totalValue?formatCurrencyCompact(calc.totalValue):'–';
+        document.getElementById('sidebarCostPerShare').textContent=calc.costBasisPerShare?formatCurrency(calc.costBasisPerShare):'–';
+        document.getElementById('sidebarCost').textContent=calc.totalCostBasis?formatCurrencyCompact(calc.totalCostBasis):'–';
+
+        // Update sim inputs from calc object
+        document.getElementById('inputGrowthRate').value = (calc.stockGrowthRate * 100).toFixed(0);
+        document.getElementById('inputIncomeRate').value = (calc.embarkIncomeRate * 100).toFixed(0);
+        document.getElementById('inputEntryTax').value = (calc.entryTaxRate * 100).toFixed(0);
+
+        // Clear charts and tables
+        document.querySelectorAll('[id^="stockDisplay"]').forEach(el=>{el.textContent=calc.ticker || 'stock'});
+        document.getElementById('growthRateDisplay').textContent=formatPercent(calc.stockGrowthRate);
+
+        const fieldsToClear = [
+          'holdThreeYear', 'holdThreeYearBar', 'sellThreeYear', 'sellThreeYearBar', 'sellThreeYearTax',
+          'embarkThreeYearCapital', 'embarkThreeYearCapitalBar', 'holdNegative', 'holdNegativeBar',
+          'holdNegativeValue', 'holdNegativeTotal', 'sellNegative', 'sellNegativeBar', 'sellNegativeValue',
+          'sellNegativeTotal', 'embarkNegative', 'embarkNegativeBar', 'embarkNegativeValue', 'embarkNegativeIncome',
+          'embarkNegativeTotal', 'holdPositive', 'holdPositiveBar', 'holdPositiveValue', 'holdPositiveTotal',
+          'sellPositive', 'sellPositiveBar', 'sellPositiveValue', 'sellPositiveTotal', 'embarkPositive',
+          'embarkPositiveBar', 'embarkPositiveValue', 'embarkPositiveIncome', 'embarkPositiveTotal',
+          'tenYearIncomeBaseline', 'tenYearInitialHold', 'tenYearInitialSell', 'tenYearInitialEmbark',
+          'tenYearCapitalHold', 'tenYearCapitalSell', 'tenYearCapitalEmbark', 'tenYearIncomeEmbark',
+          'tenYearTotalHold', 'tenYearTotalSell', 'tenYearTotalEmbark', 'fiveYearIncomeAccel',
+          'fiveYearInitialHold', 'fiveYearInitialSell', 'fiveYearInitialEmbark', 'fiveYearCapitalHold',
+          'fiveYearCapitalSell', 'fiveYearCapitalEmbark', 'fiveYearIncomeEmbark', 'fiveYearTotalHold',
+          'fiveYearTotalSell', 'fiveYearTotalEmbark', 'summaryThreeYearIncome'
+        ];
+
+        fieldsToClear.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.textContent = '–';
+              if (el.classList.contains('chart-bar')) {
+                el.style.flexGrow = 0;
+              }
+            }
+        });
+
+        document.getElementById('greenNotification').style.display='none';
+    }
+
+    // CORRECTED: Embark holds the stock, so it grows at stockGrowthRate
+    function calculateThreeYearScenarios(){
+      const years=3;
+
+      // Hold: Stock grows at stock growth rate
+      calc.holdThreeYear=calc.totalValue*Math.pow(1+calc.stockGrowthRate,years);
+
+      // Sell: After tax, grows at diversified rate
+      const entryTax=Math.max(0,calc.capitalGain)*calc.entryTaxRate;
+      const sellInvested=calc.totalValue-entryTax;
+      calc.sellThreeYear=sellInvested*Math.pow(1+calc.diversifiedGrowthRate,years);
+      calc.sellThreeYearTax=entryTax;
+
+      // CORRECTED: Embark holds stock, grows at stock growth rate
+      calc.embarkThreeYear=calc.totalValue*Math.pow(1+calc.stockGrowthRate,years);
+      calc.embarkThreeYearIncome=calc.totalValue*calc.embarkIncomeRate*years;
+    }
+
+    // CORRECTED: Risk scenarios
+    function calculateRiskScenarios(){
+      const years=3;
+      const negativeReturn=-.20;
+
+      // Negative scenario: Stock drops 20%
+      calc.holdNegative=calc.totalValue*(1+negativeReturn);
+
+      const entryTax=Math.max(0,calc.capitalGain)*calc.entryTaxRate;
+      const sellInvested=calc.totalValue-entryTax;
+      calc.sellNegative=sellInvested*Math.pow(1+calc.diversifiedGrowthRate,years);
+
+      // CORRECTED: Embark holds stock, so it also drops 20%
+      calc.embarkNegative=calc.totalValue*(1+negativeReturn);
+      calc.embarkNegativeIncome=calc.totalValue*calc.embarkIncomeRate*years;
+
+      // Positive scenario: Stock grows at assumed rate
+      calc.holdPositive=calc.holdThreeYear;
+      calc.sellPositive=calc.sellThreeYear;
+      calc.embarkPositive=calc.embarkThreeYear;
+      calc.embarkPositiveIncome=calc.embarkThreeYearIncome;
+    }
+
+    // CORRECTED: 10-year baseline
+    function calculateTenYearBaseline(){
+      const years=10;
+      const rate=.10; // 10% baseline
+
+      calc.holdTenYear=calc.totalValue*Math.pow(1+rate,years);
+
+      const entryTax=Math.max(0,calc.capitalGain)*calc.entryTaxRate;
+      const sellInvested=calc.totalValue-entryTax;
+      calc.sellTenYear=sellInvested*Math.pow(1+rate,years);
+
+      // CORRECTED: Embark holds stock at baseline 10%
+      calc.embarkTenYear=calc.totalValue*Math.pow(1+rate,years);
+      calc.embarkTenYearIncome=calc.totalValue*calc.embarkIncomeRate*years;
+    }
+
+    // CORRECTED: 5-year accelerated
+    function calculateFiveYearAccelerated(){
+      const years=5;
+      const rate=.15; // 15% accelerated
+
+      calc.holdFiveYear=calc.totalValue*Math.pow(1+rate,years);
+
+      const entryTax=Math.max(0,calc.capitalGain)*calc.entryTaxRate;
+      const sellInvested=calc.totalValue-entryTax;
+      calc.sellFiveYear=sellInvested*Math.pow(1+rate,years);
+
+      // CORRECTED: Embark holds stock at accelerated 15%
+      calc.embarkFiveYear=calc.totalValue*Math.pow(1+rate,years);
+      calc.embarkFiveYearIncome=calc.totalValue*calc.embarkIncomeRate*years;
+    }
+
+    function updateAllDisplays(){
+      // Sidebar
+      document.getElementById('sidebarStock').textContent=calc.ticker||'–';
+      document.getElementById('sidebarShares').textContent=calc.numShares?calc.numShares.toLocaleString():'–';
+      document.getElementById('sidebarPrice').textContent=calc.stockPrice?formatCurrency(calc.stockPrice):'–';
+      document.getElementById('sidebarValue').textContent=calc.totalValue?formatCurrencyCompact(calc.totalValue):'–';
+      document.getElementById('sidebarCostPerShare').textContent=calc.costBasisPerShare?formatCurrency(calc.costBasisPerShare):'–';
+      document.getElementById('sidebarCost').textContent=calc.totalCostBasis?formatCurrencyCompact(calc.totalCostBasis):'–';
+
+      document.getElementById('inputGrowthRate').value = (calc.stockGrowthRate * 100).toFixed(0);
+      document.getElementById('inputIncomeRate').value = (calc.embarkIncomeRate * 100).toFixed(0);
+      document.getElementById('inputEntryTax').value = (calc.entryTaxRate * 100).toFixed(0);
+
+      document.querySelectorAll('[id^="stockDisplay"]').forEach(el=>{el.textContent=calc.ticker});
+
+      // Step 4 capital
+      document.getElementById('growthRateDisplay').textContent=formatPercent(calc.stockGrowthRate);
+
+      const maxVal = Math.max(calc.holdThreeYear, calc.embarkThreeYear, calc.sellThreeYear);
+
+      // Hold Bar
+      document.getElementById('holdThreeYear').textContent=formatCurrency(calc.holdThreeYear);
+      const holdBar = document.getElementById('holdThreeYearBar');
+      holdBar.textContent = `${calc.ticker}: ${formatCurrency(calc.holdThreeYear)}`;
+      holdBar.style.height = '100%';
+      holdBar.parentElement.style.height = `${(calc.holdThreeYear / maxVal) * 100}%`;
+
+      // Embark Bar
+      document.getElementById('embarkThreeYearCapital').textContent=formatCurrency(calc.embarkThreeYear);
+      const embarkBar = document.getElementById('embarkThreeYearCapitalBar');
+      embarkBar.textContent = formatCurrency(calc.embarkThreeYear);
+      embarkBar.style.height = '100%';
+      embarkBar.parentElement.style.height = `${(calc.embarkThreeYear / maxVal) * 100}%`;
+
+      // Sell & Diversify Bar
+      document.getElementById('sellThreeYear').textContent=formatCurrency(calc.sellThreeYear);
+      const sellBar = document.getElementById('sellThreeYearBar');
+      const taxBar = document.getElementById('sellThreeYearTax');
+
+      const sellContainerEl = document.getElementById('sellThreeYearBar').parentElement;
+      sellContainerEl.style.height = `${(calc.totalValue / maxVal) * 100}%`;
+      document.getElementById('sellThreeYear').textContent = formatCurrency(calc.sellThreeYear);
+
+      const sellInvested = calc.totalValue - calc.sellThreeYearTax;
+
+      sellBar.textContent = formatCurrency(calc.sellThreeYear);
+      sellBar.style.flexGrow = sellInvested;
+
+      taxBar.textContent = `TAX: -${formatCurrency(calc.sellThreeYearTax)}`;
+      taxBar.style.flexGrow = calc.sellThreeYearTax;
+
+      document.getElementById('holdNegativeBar').style.flexGrow = '1';
+      document.getElementById('sellNegativeBar').style.flexGrow = '1';
+      document.getElementById('embarkNegativeBar').style.flexGrow = '1';
+      document.getElementById('holdPositiveBar').style.flexGrow = '1';
+      document.getElementById('sellPositiveBar').style.flexGrow = '1';
+      document.getElementById('embarkPositiveBar').style.flexGrow = '1';
+
+      // Step 5 scenarios
+      updateRiskScenarios(maxVal);
+
+      // Step 6
+      document.getElementById('tenYearIncomeBaseline').textContent=formatCurrency(calc.embarkTenYearIncome);
+      document.getElementById('tenYearInitialHold').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('tenYearInitialSell').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('tenYearInitialEmbark').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('tenYearCapitalHold').textContent=formatCurrency(calc.holdTenYear);
+      document.getElementById('tenYearCapitalSell').textContent=formatCurrency(calc.sellTenYear);
+      document.getElementById('tenYearCapitalEmbark').textContent=formatCurrency(calc.embarkTenYear);
+      document.getElementById('tenYearIncomeEmbark').textContent=formatCurrency(calc.embarkTenYearIncome);
+      document.getElementById('tenYearTotalHold').textContent=formatCurrency(calc.holdTenYear);
+      document.getElementById('tenYearTotalSell').textContent=formatCurrency(calc.sellTenYear);
+      document.getElementById('tenYearTotalEmbark').textContent=formatCurrency(calc.embarkTenYear+calc.embarkTenYearIncome);
+
+      // Step 7
+      document.getElementById('fiveYearIncomeAccel').textContent=formatCurrency(calc.embarkFiveYearIncome);
+      document.getElementById('fiveYearInitialHold').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('fiveYearInitialSell').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('fiveYearInitialEmbark').textContent=formatCurrency(calc.totalValue);
+      document.getElementById('fiveYearCapitalHold').textContent=formatCurrency(calc.holdFiveYear);
+      document.getElementById('fiveYearCapitalSell').textContent=formatCurrency(calc.sellFiveYear);
+      document.getElementById('fiveYearCapitalEmbark').textContent=formatCurrency(calc.embarkFiveYear);
+      document.getElementById('fiveYearIncomeEmbark').textContent=formatCurrency(calc.embarkFiveYearIncome);
+      document.getElementById('fiveYearTotalHold').textContent=formatCurrency(calc.holdFiveYear);
+      document.getElementById('fiveYearTotalSell').textContent=formatCurrency(calc.sellFiveYear);
+      document.getElementById('fiveYearTotalEmbark').textContent=formatCurrency(calc.embarkFiveYear+calc.embarkFiveYearIncome);
+
+      // Step 8
+      document.getElementById('summaryThreeYearIncome').textContent=formatCurrency(calc.embarkThreeYearIncome);
+
+      const green=document.getElementById('greenNotification');
+      if(calc.ticker&&currentStep>=2){green.style.display='flex'}else{green.style.display='none'}
+
+      updateMobileStrip();
+    }
+
+    function updateRiskScenarios(maxChartVal){
+      const maxNeg = Math.max(calc.holdNegative, calc.sellNegative, calc.embarkNegative + calc.embarkNegativeIncome);
+      const maxPos = Math.max(calc.holdPositive, calc.sellPositive, calc.embarkPositive + calc.embarkPositiveIncome);
+
+      // Negative
+      document.getElementById('holdNegative').textContent=formatCurrency(calc.holdNegative);
+      document.getElementById('holdNegativeBar').textContent=formatCurrency(calc.holdNegative);
+      document.getElementById('holdNegativeValue').textContent=formatCurrency(calc.holdNegative);
+      document.getElementById('holdNegativeTotal').textContent=formatCurrency(calc.holdNegative);
+
+      document.getElementById('sellNegative').textContent=formatCurrency(calc.sellNegative);
+      document.getElementById('sellNegativeBar').textContent=formatCurrency(calc.sellNegative);
+      document.getElementById('sellNegativeValue').textContent=formatCurrency(calc.sellNegative);
+      document.getElementById('sellNegativeTotal').textContent=formatCurrency(calc.sellNegative);
+
+      document.getElementById('embarkNegative').textContent=formatCurrency(calc.embarkNegative+calc.embarkNegativeIncome);
+      document.getElementById('embarkNegativeBar').textContent=formatCurrency(calc.embarkNegative+calc.embarkNegativeIncome);
+      document.getElementById('embarkNegativeValue').textContent=formatCurrency(calc.embarkNegative);
+      document.getElementById('embarkNegativeIncome').textContent=formatCurrency(calc.embarkNegativeIncome);
+      document.getElementById('embarkNegativeTotal').textContent=formatCurrency(calc.embarkNegative+calc.embarkNegativeIncome);
+
+      // Positive
+      document.getElementById('holdPositive').textContent=formatCurrency(calc.holdPositive);
+      document.getElementById('holdPositiveBar').textContent=formatCurrency(calc.holdPositive);
+      document.getElementById('holdPositiveValue').textContent=formatCurrency(calc.holdPositive);
+      document.getElementById('holdPositiveTotal').textContent=formatCurrency(calc.holdPositive);
+
+      document.getElementById('sellPositive').textContent=formatCurrency(calc.sellPositive);
+      document.getElementById('sellPositiveBar').textContent=formatCurrency(calc.sellPositive);
+      document.getElementById('sellPositiveValue').textContent=formatCurrency(calc.sellPositive);
+      document.getElementById('sellPositiveTotal').textContent=formatCurrency(calc.sellPositive);
+
+      document.getElementById('embarkPositive').textContent=formatCurrency(calc.embarkPositive+calc.embarkPositiveIncome);
+      document.getElementById('embarkPositiveBar').textContent=formatCurrency(calc.embarkPositive+calc.embarkPositiveIncome);
+      document.getElementById('embarkPositiveValue').textContent=formatCurrency(calc.embarkPositive);
+      document.getElementById('embarkPositiveIncome').textContent=formatCurrency(calc.embarkPositiveIncome);
+      document.getElementById('embarkPositiveTotal').textContent=formatCurrency(calc.embarkPositive+calc.embarkPositiveIncome);
+    }
+
+    function switchScenario(scenario, evt){
+      currentScenarioTab=scenario;
+      document.querySelectorAll('.scenario-tab').forEach(t=>t.classList.remove('active'));
+      if(evt&&evt.target)evt.target.classList.add('active');
+      document.querySelectorAll('.scenario-content').forEach(c=>c.classList.remove('active'));
+      if(scenario==='negative'){document.getElementById('negativeScenario').classList.add('active')}
+      else{document.getElementById('positiveScenario').classList.add('active')}
+    }
+
+    function updateMobileStrip(){
+      const strip=document.getElementById('mobileStrip');
+      if(window.innerWidth>768){strip.style.display='none';return}
+      if(currentStep>=2&&calc.ticker&&calc.totalValue){
+        strip.innerHTML=`<span class="mobile-strip-label">Position</span>
+          <span class="mobile-strip-value">${calc.numShares.toLocaleString()} shares of ${calc.ticker}</span>
+          <span class="mobile-strip-edit" onclick="editFromMobile(event)">Edit</span>`;
+        strip.style.display='block';
+      }else{strip.style.display='none'}
+    }
+    function editFromMobile(e){e.stopPropagation();goToStep(1)}
+
+    function goToStep(step){
+      const current=document.getElementById('step'+currentStep); if(current)current.classList.remove('active');
+      const next=document.getElementById('step'+step); if(next)next.classList.add('active');
+      currentStep=step;
+
+      if(step>=2){
+        const hero=document.querySelector('.hero-img'); if(hero)hero.style.display='none';
+        document.getElementById('sidebarInfo').classList.add('active');
+      }else{
+        const hero=document.querySelector('.hero-img'); if(hero)hero.style.display='block';
+        document.getElementById('sidebarInfo').classList.remove('active');
+      }
+
+      updateMobileStrip();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function loadHubspotForm(){
+      if(!window.hbspt)return;
+      if(document.querySelector('#hubspotFormContainer .hs-form'))return;
+
+      hbspt.forms.create({
+        portalId:"48102387",
+        formId:"efd29d4f-aefa-46ab-bdc9-e847abc93bed",
+        region:"na1",
+        target:"#hubspotFormContainer",
+        cssClass:"embark-hs-form",
+        onFormSubmit:function(){
+          const meetingUrl="https://meetings.hubspot.com/investor-relations9?uuid=6533cbfb-8e12-4bdb-9689-d76d79993bbc";
+          window.location.href=meetingUrl;
+        }
+      });
+    }
+    function openSurvey(){
+      const overlay=document.getElementById('surveyOverlay');
+      overlay.classList.add('active');
+      if(window.hbspt){loadHubspotForm()}else{
+        const intId=setInterval(()=>{if(window.hbspt){clearInterval(intId);loadHubspotForm()}},150);
+      }
+    }
+    function closeSurvey(){document.getElementById('surveyOverlay').classList.remove('active')}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSurvey()});
+    window.addEventListener('resize',updateMobileStrip);
+
+    runLiveUpdate();
+  </script>
+</body>
+</html>

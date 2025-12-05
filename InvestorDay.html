@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proflex Investor Day | Market Top or Forever Bull?</title>
+
+    <!-- Fonts: Playfair Display (Serif) & Inter (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bh: {
+                            black: '#141c25',
+                            dark: '#1e2833',
+                            gray: '#2a3642',
+                            text: '#e0e0e0',
+                            muted: '#a0a0a0',
+                            gold: '#C9A961',
+                            accent: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ============================================
+           ULTRA-MODERN ENHANCEMENTS
+           ============================================ */
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #141c25; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #C9A961 0%, #a07d4a 100%); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #d4b56f 0%, #C9A961 100%); }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, #C9A961 0%, #ffffff 100%);
+            z-index: 9999; transition: width 0.1s ease;
+            box-shadow: 0 0 20px rgba(201, 169, 97, 0.8);
+        }
+
+        /* Page Load Animation */
+        body { animation: fadeInBody 0.8s ease-out; }
+        @keyframes fadeInBody { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(20, 28, 37, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Hero Parallax Animation */
+        @keyframes heroParallax {
+            0% { transform: scale(1.15) translate(0, 0); opacity: 0.3; }
+            50% { transform: scale(1) translate(0, 0); opacity: 0.45; }
+            100% { transform: scale(1.15) translate(0, 0); opacity: 0.3; }
+        }
+        .hero-image { animation: heroParallax 30s infinite ease-in-out; will-change: transform; }
+        .parallax-bg { transition: transform 0.1s ease-out; will-change: transform; }
+
+        /* Fade In Animations */
+        .fade-in-section {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Staggered Animation */
+        .stagger-item {
+            opacity: 0; transform: translateY(30px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .stagger-item.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-item:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-item:nth-child(6) { transition-delay: 0.6s; }
+
+        /* Hover Underline */
+        .hover-underline-animation { position: relative; }
+        .hover-underline-animation::after {
+            content: ''; position: absolute; width: 100%; transform: scaleX(0);
+            height: 2px; bottom: -2px; left: 0;
+            background: linear-gradient(90deg, #C9A961 0%, #ffffff 100%);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .hover-underline-animation:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+
+        /* Benefit Cards */
+        .benefit-card-enhanced {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px; padding: 3rem 2rem;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .benefit-card-enhanced:hover {
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.08) 0%, rgba(255,255,255,0.03) 100%);
+            border-color: rgba(201, 169, 97, 0.3);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+        .benefit-icon-wrapper {
+            width: 90px; height: 90px; margin: 0 auto 2rem;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .benefit-icon-wrapper::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.15), rgba(255, 255, 255, 0.05));
+            border-radius: 50%; transform: rotate(0deg);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .benefit-card-enhanced:hover .benefit-icon-wrapper::before {
+            transform: rotate(180deg) scale(1.1);
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.25), rgba(255, 255, 255, 0.1));
+        }
+        .benefit-icon-wrapper i { font-size: 2.5rem; position: relative; z-index: 1; transition: all 0.4s ease; }
+        .benefit-card-enhanced:hover .benefit-icon-wrapper i { transform: scale(1.15); color: #C9A961; }
+
+        /* Video Carousel */
+        .video-carousel-container { position: relative; overflow: hidden; margin: 3rem 0; padding: 2rem 0; }
+        .video-carousel-wrapper { display: flex; gap: 2.5rem; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
+        .video-card-modern {
+            flex: 0 0 calc(50% - 1.25rem); min-width: 350px;
+            position: relative; border-radius: 24px; overflow: hidden;
+            background: #000; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .video-card-modern:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 40px 100px rgba(201, 169, 97, 0.4); border-color: rgba(201, 169, 97, 0.5); }
+        .video-embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .video-embed-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-info { padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.98), rgba(0,0,0,0.85)); }
+        .video-info h4 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #fff; margin-bottom: 0.75rem; }
+        .video-card-modern:hover .video-info h4 { color: #C9A961; }
+
+        /* Stats - Fixed Clipping */
+        .stat-massive {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            line-height: 1.1; /* Increased to prevent clipping */
+            font-weight: 700;
+            background: linear-gradient(135deg, #C9A961 0%, #d4b56f 50%, #C9A961 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 80px rgba(201, 169, 97, 0.3);
+            padding-bottom: 10px; /* Space for descenders */
+            display: inline-block;
+        }
+        .stat-large {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            line-height: 1.2; /* Increased */
+            font-weight: 600;
+            background: linear-gradient(135deg, #C9A961 0%, #d4b56f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Event Details Card (Product Card Style) */
+        .event-detail-card {
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden;
+        }
+        .event-detail-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        .event-detail-card:hover::before { left: 100%; }
+        .event-detail-card:hover { transform: translateY(-12px); box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2); }
+
+        /* Section Number */
+        .section-number {
+            opacity: 0.03; font-size: 12rem; font-weight: 700; position: absolute;
+            top: -2rem; left: 0; line-height: 1; pointer-events: none;
+        }
+
+        /* Nav Dots - Adaptive Coloring */
+        #nav-dots { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1rem; }
+        .nav-dot {
+            width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3);
+            cursor: pointer; transition: all 0.3s ease; position: relative; border: 1px solid transparent;
+        }
+
+        /* Dark Mode Dots (for White Backgrounds) */
+        .nav-dark .nav-dot { background: rgba(20, 28, 37, 0.3); border-color: rgba(20, 28, 37, 0.1); }
+        .nav-dark .nav-dot:hover { background: rgba(201, 169, 97, 0.8); }
+        .nav-dark .nav-dot.active { background: #C9A961; box-shadow: 0 0 20px rgba(201, 169, 97, 0.6); border-color: #C9A961; }
+
+        /* Light Mode Dots (Default for Dark Backgrounds) */
+        .nav-dot:hover { background: rgba(201, 169, 97, 0.6); transform: scale(1.3); }
+        .nav-dot.active { background: #C9A961; transform: scale(1.5); box-shadow: 0 0 20px rgba(201, 169, 97, 0.8); }
+
+        .nav-dot::before {
+            content: attr(data-tooltip); position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+            background: rgba(20, 28, 37, 0.95); color: white; padding: 0.5rem 1rem; border-radius: 6px;
+            font-size: 0.75rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .nav-dot:hover::before { opacity: 1; }
+
+        /* Hero 3D Video Container */
+        .hero-3d-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        .hero-video-card {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.5);
+            transform: rotateY(-15deg) rotateX(5deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 28, 37, 0.8);
+            position: relative;
+        }
+        .hero-video-card:hover {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+            box-shadow: 0 30px 80px rgba(201, 169, 97, 0.2);
+            border-color: rgba(201, 169, 97, 0.4);
+        }
+        .hero-video-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Buttons */
+        .btn-primary { position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-3d-container { perspective: none; transform: none; margin-top: 3rem; }
+            .hero-video-card { transform: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+            .hero-video-card:hover { transform: none; }
+        }
+        @media (max-width: 768px) {
+            .stat-massive { font-size: 5rem; }
+            .stat-large { font-size: 3rem; }
+            #nav-dots { display: none; }
+            .video-card-modern { flex: 0 0 100%; min-width: 100%; }
+            .section-number { font-size: 6rem; }
+        }
+    </style>
+</head>
+<body class="bg-bh-black text-bh-text font-sans antialiased overflow-x-hidden selection:bg-bh-gold selection:text-black">
+    <div id="nav-sentinel" class="h-[1px] absolute top-0 w-full z-10"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Floating Navigation Dots -->
+    <div id="nav-dots">
+        <div class="nav-dot" data-tooltip="Hero" data-target="#hero"></div>
+        <div class="nav-dot" data-tooltip="Performance" data-target="#stats"></div>
+        <div class="nav-dot" data-tooltip="Methodology" data-target="#approach"></div>
+        <div class="nav-dot" data-tooltip="Details" data-target="#details"></div>
+        <div class="nav-dot" data-tooltip="Agenda" data-target="#agenda"></div>
+        <div class="nav-dot" data-tooltip="Testimonials" data-target="#testimonials"></div>
+        <div class="nav-dot" data-tooltip="FAQ" data-target="#faq"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 z-50 relative group">
+                <img src="https://i.ibb.co/N23KN2st/Proflex-Square200x-Logo-Transparent-Black.webp"
+                     alt="Proflex Logo"
+                     class="h-12 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                <div class="flex flex-col">
+                    <span class="text-xl tracking-widest uppercase font-serif font-bold text-white group-hover:text-bh-gold transition-colors duration-300">Proflex</span>
+                    <span class="text-[10px] uppercase tracking-widest text-bh-muted">Finance</span>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-10 text-xs tracking-[0.2em] uppercase font-medium">
+                <a href="#stats" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Performance</a>
+                <a href="#approach" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Methodology</a>
+                <a href="#agenda" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Agenda</a>
+                <a href="#testimonials" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Reviews</a>
+                <a href="#faq" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">FAQ</a>
+                <a href="https://www.eventbrite.com/e/proflex-investor-day-oct-2025-tickets-1721565592029" target="_blank" class="border border-bh-gold px-6 py-2 text-bh-gold hover:bg-bh-gold hover:text-black transition-all">Secure Spot</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden z-50 text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-bh-black/98 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center space-y-8">
+        <a href="#stats" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all">Performance</a>
+        <a href="#approach" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all">Methodology</a>
+        <a href="#agenda" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all">Agenda</a>
+        <a href="#testimonials" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all">Reviews</a>
+        <a href="https://www.eventbrite.com/e/proflex-investor-day-oct-2025-tickets-1721565592029" class="text-2xl font-serif mobile-link text-bh-gold border-b border-bh-gold pb-2">Secure Spot</a>
+    </div>
+
+    <!-- Hero Section (DARK) -->
+    <header id="hero" class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden py-20 lg:py-0" data-theme="dark">
+        <div class="absolute inset-0 z-0 parallax-bg" id="hero-parallax">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+                 alt="City Skyline"
+                 class="hero-image w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-bh-black/80 via-bh-black/60 to-bh-black"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                <!-- Hero Text -->
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-10 tracking-tight text-white animate-[fadeInBody_1.2s_ease-out]">
+                        Is the Market <br> <span class="text-bh-gold">Topped Out?</span>
+                    </h1>
+
+                    <p class="text-bh-text text-sm md:text-xl font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-12 animate-[fadeInBody_1.5s_ease-out]">
+                        Rates are dropping. Stocks are at highs. Uncertainty is peaking.<br>
+                        <span class="text-white font-medium mt-2 block">You don't need a crystal ball. You need a plan.</span>
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start animate-[fadeInBody_1.8s_ease-out]">
+                         <a href="https://www.eventbrite.com/e/proflex-investor-day-oct-2025-tickets-1721565592029" target="_blank" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-white transition-all min-w-[220px] relative z-10">
+                            Secure Your Spot
+                        </a>
+                        <a href="#agenda" class="btn-primary border-2 border-white/40 px-10 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:border-white hover:bg-white/10 transition-all min-w-[220px]">
+                            View Agenda
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Video (3D Container) -->
+                <div class="lg:w-1/2 w-full hero-3d-container animate-[fadeInBody_2s_ease-out]">
+                    <div class="hero-video-card aspect-video w-full relative group cursor-pointer">
+                        <iframe id="hero-video-player" class="w-full h-full absolute inset-0 z-10"
+                                src="https://www.youtube.com/embed/2a5asVkwKvQ?si=HSRTs0bJSUO1EKB5&amp;enablejsapi=1&amp;loop=1&amp;playlist=2a5asVkwKvQ&amp;controls=1&amp;showinfo=0&amp;rel=0&amp;mute=1"
+                                title="Proflex Investor Day" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                        </iframe>
+                        <div class="absolute bottom-0 left-0 w-full p-6 z-20 bg-gradient-to-t from-black/90 to-transparent pointer-events-none">
+                            <span class="text-xs text-bh-gold uppercase tracking-widest font-bold mb-1 block">Watch Teaser</span>
+                            <h3 class="text-white font-serif text-xl">Proflex Investor Day</h3>
+                        </div>
+                        <!-- Play Button Overlay (Optional, if video doesn't autoplay) -->
+                        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                            <div class="w-16 h-16 rounded-full bg-bh-gold/20 backdrop-blur-sm border border-bh-gold/50 flex items-center justify-center">
+                                <i class="fa-solid fa-play text-white ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 lg:mt-24 opacity-60 text-center animate-bounce lg:absolute lg:bottom-10 lg:left-1/2 lg:-translate-x-1/2">
+                <p class="text-bh-muted text-xs uppercase tracking-[0.3em] mb-4">Scroll to Explore</p>
+                <i class="fa-solid fa-chevron-down text-white text-xl"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 01 PERFORMANCE (WHITE) -->
+    <section id="stats" class="py-32 md:py-40 bg-white text-bh-black relative" data-theme="light">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20 items-start" id="stats-grid">
+                <div class="absolute top-10 left-6 md:left-12">
+                    <span class="section-number font-serif text-gray-100 text-9xl z-0">01</span>
+                </div>
+
+                <div class="md:w-1/2 fade-in-section relative z-10 pt-10 md:pt-0">
+                    <div class="mb-8">
+                        <span class="text-xs font-bold uppercase tracking-widest text-bh-black border-b-2 border-bh-black pb-2">
+                            Proven Results &nbsp; <i class="fa-solid fa-chart-line text-[10px]"></i>
+                        </span>
+                    </div>
+                    <!-- Fixed Clipping on Numbers -->
+                    <div class="mb-6 flex items-baseline">
+                        <span class="stat-massive counter" data-target="52.5">0</span>
+                        <span class="stat-massive">%</span>
+                    </div>
+                    <h4 class="text-2xl font-serif font-bold mb-6">Since Inception Return</h4>
+                    <p class="text-gray-600 font-light leading-relaxed text-lg max-w-md">
+                        We don't predict the future; we prepare for it. Our RIA strategies have consistently outperformed regardless of market narrative.
+                    </p>
+                </div>
+
+                <div class="md:w-1/2 flex flex-col gap-20 fade-in-section pt-10 md:pt-24">
+                    <div class="flex flex-col md:flex-row gap-8 items-start md:items-center stagger-item">
+                        <div class="w-48 flex-shrink-0">
+                            <div class="flex items-baseline">
+                                <span class="stat-large counter" data-target="2.9">0</span>
+                                <span class="stat-large">x</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-serif text-xl font-bold mb-3">Vs S&P 500</h5>
+                            <p class="text-sm text-gray-500 font-light">Significant alpha generation over benchmark.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-8 items-start md:items-center stagger-item">
+                        <div class="w-48 flex-shrink-0">
+                            <div class="flex items-baseline">
+                                <span class="stat-large">$</span>
+                                <span class="stat-large counter" data-target="12.8">0</span>
+                                <span class="stat-large">M</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-serif text-xl font-bold mb-3">Assets Under Management</h5>
+                            <p class="text-sm text-gray-500 font-light">Trusted capital deployed across diverse strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 METHODOLOGY (DARK) -->
+    <section id="approach" class="py-32 md:py-40 relative bg-bh-black border-t border-white/10 overflow-hidden" data-theme="dark">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-white">02</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Methodology</h2>
+                </div>
+
+                <div class="md:w-3/4 space-y-20 fade-in-section">
+                    <div>
+                        <h3 class="text-4xl md:text-6xl font-serif leading-tight mb-10 text-white">
+                            Prepared, Not Scared.
+                        </h3>
+                        <p class="text-bh-muted text-xl leading-relaxed max-w-3xl font-light mb-10">
+                            The media sells fear. We sell preparation. We identify if the market is overextended or consolidating, ignoring the hype cycle to execute with precision.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                            <div class="border-l-2 border-bh-gold/30 pl-6 hover:border-bh-gold transition-colors">
+                                <h4 class="text-white font-serif text-xl mb-2">1. Analyze Structure</h4>
+                                <p class="text-sm text-bh-muted">Identify market regime without emotion.</p>
+                            </div>
+                            <div class="border-l-2 border-bh-gold/30 pl-6 hover:border-bh-gold transition-colors">
+                                <h4 class="text-white font-serif text-xl mb-2">2. Define Risk</h4>
+                                <p class="text-sm text-bh-muted">Know the cost before seeking the profit.</p>
+                            </div>
+                            <div class="border-l-2 border-bh-gold/30 pl-6 hover:border-bh-gold transition-colors">
+                                <h4 class="text-white font-serif text-xl mb-2">3. Allocate Defensively</h4>
+                                <p class="text-sm text-bh-muted">Use hedging and fixed income tools.</p>
+                            </div>
+                            <div class="border-l-2 border-bh-gold/30 pl-6 hover:border-bh-gold transition-colors">
+                                <h4 class="text-white font-serif text-xl mb-2">4. Execute Calmly</h4>
+                                <p class="text-sm text-bh-muted">Follow the plan when others panic.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 DETAILS (WHITE) -->
+    <section id="details" class="py-32 md:py-40 relative bg-white text-bh-black overflow-hidden" data-theme="light">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-gray-900">03</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Details</h2>
+                </div>
+
+                <div class="md:w-3/4 fade-in-section">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Date -->
+                        <div class="event-detail-card stagger-item border border-gray-200 p-10 hover:border-bh-gold/60 hover:shadow-xl transition-all duration-500 flex flex-col rounded-xl bg-white">
+                            <i class="fa-regular fa-calendar text-4xl text-bh-gold mb-6"></i>
+                            <h4 class="text-xs uppercase tracking-[0.25em] text-gray-400 mb-3 font-bold">When</h4>
+                            <h3 class="text-2xl font-serif text-bh-black mb-2 font-bold">October 5, 2025</h3>
+                            <p class="text-sm text-gray-600 font-light">Sunday<br>11:00 AM - 4:00 PM</p>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="event-detail-card stagger-item bg-bh-black border border-bh-gold p-10 relative flex flex-col shadow-2xl rounded-xl transform lg:-translate-y-3">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-bh-gold to-white"></div>
+                            <i class="fa-solid fa-location-dot text-4xl text-white mb-6"></i>
+                            <h4 class="text-xs uppercase tracking-[0.25em] text-bh-gold mb-3 font-bold">Where</h4>
+                            <h3 class="text-2xl font-serif text-white mb-2 font-bold">Santana Row</h3>
+                            <p class="text-sm text-gray-400 font-light">400 Santana Row<br>San Jose, CA 95128</p>
+                            <a href="https://share.google/NKMcPhTvoSNt3P4OO" target="_blank" class="mt-6 text-xs uppercase tracking-widest text-bh-gold hover:text-white underline">View Map</a>
+                        </div>
+
+                        <!-- Focus -->
+                        <div class="event-detail-card stagger-item border border-gray-200 p-10 hover:border-bh-gold/60 hover:shadow-xl transition-all duration-500 flex flex-col rounded-xl bg-white">
+                            <i class="fa-solid fa-bullseye text-4xl text-bh-gold mb-6"></i>
+                            <h4 class="text-xs uppercase tracking-[0.25em] text-gray-400 mb-3 font-bold">Focus</h4>
+                            <h3 class="text-2xl font-serif text-bh-black mb-2 font-bold">Risk Management</h3>
+                            <p class="text-sm text-gray-600 font-light">Bear Market Defense<br>Portfolio Planning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 AGENDA (DARK) -->
+    <section id="agenda" class="py-32 md:py-40 relative bg-bh-black border-t border-white/10 overflow-hidden" data-theme="dark">
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+             <div class="mb-20 text-center fade-in-section">
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-bh-gold border-b-2 border-bh-gold pb-2">04 &nbsp; Agenda</span>
+                <h2 class="text-4xl md:text-6xl font-serif text-white mt-8">Managing Uncertainty</h2>
+            </div>
+
+            <!-- Uniform Grid: 3 Columns x 2 Rows (6 Items) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12 fade-in-section">
+                <!-- Item 1 -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                        <i class="fa-solid fa-globe text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Macro View</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Is the top in? We dissect the data to separate noise from signal.</p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                         <i class="fa-solid fa-chess-board text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Planning</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Architecting a portfolio resilient to binary market outcomes.</p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                         <i class="fa-solid fa-shield-halved text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Risk & Yield</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Introducing <span class="text-bh-gold font-bold">Proflex Embark</span>: Fixed-income safety solutions.</p>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                         <i class="fa-solid fa-arrow-trend-up text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Options Strategy</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Tactical workshop on generating income while waiting for clarity.</p>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                         <i class="fa-solid fa-users-viewfinder text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Networking</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Connect with peers facing the same uncertainty.</p>
+                </div>
+
+                <!-- Item 6 (New Item to Balance Grid) -->
+                <div class="benefit-card-enhanced text-center group cursor-default stagger-item">
+                    <div class="benefit-icon-wrapper">
+                         <i class="fa-solid fa-martini-glass-citrus text-white"></i>
+                    </div>
+                    <h4 class="text-xl font-serif text-white mb-4 transition-colors">Happy Hour</h4>
+                    <p class="text-sm text-bh-muted font-light leading-relaxed">Exclusive post-event networking with drinks and discussions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 TESTIMONIALS (WHITE) -->
+    <section id="testimonials" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden" data-theme="light">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-gray-900">05</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Reviews</h2>
+                </div>
+
+                <div class="md:w-3/4 fade-in-section">
+                    <div class="mb-16">
+                        <h3 class="text-4xl md:text-6xl font-serif mb-8 text-bh-black">Client Insights</h3>
+                        <p class="text-gray-600 font-light text-xl max-w-2xl leading-relaxed">
+                            Hear from Silicon Valley executives and engineers who have transformed their trading with Proflex.
+                        </p>
+                    </div>
+
+                    <div class="video-carousel-container">
+                        <div class="video-carousel-wrapper" id="videoCarousel">
+                            <!-- Hero Video (Proflex Investor Day) -->
+                            <div class="video-card-modern stagger-item">
+                                <div class="video-embed-container">
+                                    <iframe src="https://www.youtube.com/embed/2a5asVkwKvQ?si=HSRTs0bJSUO1EKB5&enablejsapi=1" title="Proflex Investor Day" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-info">
+                                    <h4>Event Overview</h4>
+                                    <p>What to Expect</p>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial Video -->
+                            <div class="video-card-modern stagger-item">
+                                <div class="video-embed-container">
+                                    <iframe src="https://www.youtube.com/embed/p8OEv16eD7M?si=RtBaPCTMRHRk7pjz&enablejsapi=1" title="Client Testimonial" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-info">
+                                    <h4>Client Stories</h4>
+                                    <p>Real Results</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 FAQ (DARK) -->
+    <section id="faq" class="py-32 md:py-40 bg-bh-black text-white relative border-t border-white/10 overflow-hidden" data-theme="dark">
+        <div class="container mx-auto px-6 md:px-12">
+             <div class="flex flex-col md:flex-row gap-20">
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-white">06</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">FAQ</h2>
+                </div>
+
+                <div class="md:w-3/4 fade-in-section">
+                    <h3 class="text-4xl md:text-6xl font-serif mb-16 text-white">Common Questions</h3>
+
+                    <div class="grid grid-cols-1 gap-8">
+                        <div class="border-b border-white/20 pb-8">
+                            <h4 class="font-serif text-2xl mb-4 text-white">I'm worried about a crash. Is this for me?</h4>
+                            <p class="text-bh-muted font-light text-lg">Absolutely. This event is specifically designed to address portfolio planning during times of uncertainty. We will focus heavily on risk management.</p>
+                        </div>
+                        <div class="border-b border-white/20 pb-8">
+                            <h4 class="font-serif text-2xl mb-4 text-white">What is Proflex Embark?</h4>
+                            <p class="text-bh-muted font-light text-lg">Embark is our specialized fixed-income strategy designed to provide stable yield and capital preservation. We will introduce it as a solution for safety.</p>
+                        </div>
+                        <div class="border-b border-white/20 pb-8">
+                            <h4 class="font-serif text-2xl mb-4 text-white">Do I need to be an expert trader?</h4>
+                            <p class="text-bh-muted font-light text-lg">No. We focus on macro concepts and portfolio construction. The principles apply whether you are an active trader or a passive investor.</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- 07 REGISTER (WHITE) -->
+    <section id="contact" class="py-32 md:py-40 bg-white text-bh-black relative" data-theme="light">
+         <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-gray-900">07</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Register</h2>
+                </div>
+
+                <div class="md:w-3/4 grid grid-cols-1 gap-12 fade-in-section">
+                    <div class="max-w-2xl">
+                        <h4 class="font-serif text-4xl md:text-6xl mb-10 text-bh-black leading-tight">Don't Let Uncertainty Paralyze You.</h4>
+                        <p class="text-gray-600 font-light text-xl mb-14 leading-relaxed">Join us to build a portfolio that can weather the storm and capture the upside.</p>
+
+                        <div class="flex flex-col sm:flex-row gap-6">
+                            <a href="https://www.eventbrite.com/e/proflex-investor-day-oct-2025-tickets-1721565592029" target="_blank" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-black hover:text-white transition-all text-center">
+                                Get Tickets Now
+                            </a>
+                            <a href="mailto:contact@proflexfinance.com" class="btn-primary border-2 border-bh-black/30 text-bh-black px-10 py-5 uppercase tracking-widest text-xs hover:border-bh-black hover:bg-bh-black hover:text-white transition-all text-center font-bold">
+                                Contact Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bh-black py-16 text-xs text-bh-muted border-t border-white/5" data-theme="dark">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-wrap justify-center gap-8 uppercase tracking-wider mb-10">
+                <a href="#" class="hover:text-white transition-colors font-medium">Terms</a>
+                <a href="#" class="hover:text-white transition-colors font-medium">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors font-medium">Disclosures</a>
+            </div>
+            <div class="text-center opacity-60">
+                <p>&copy; 2025 Proflex Finance LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scroll-progress');
+            const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPosition = window.scrollY;
+            const progress = (scrollPosition / scrollTotal) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Glassmorphism Navigation
+        const navbar = document.getElementById('navbar');
+        const navSentinel = document.getElementById('nav-sentinel');
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    navbar.classList.remove('bg-transparent', 'py-6');
+                    navbar.classList.add('glass-nav', 'py-4');
+                } else {
+                    navbar.classList.add('bg-transparent', 'py-6');
+                    navbar.classList.remove('glass-nav', 'py-4');
+                }
+            });
+        });
+        if (navSentinel) navObserver.observe(navSentinel);
+
+        // Hero Parallax
+        const heroParallax = document.getElementById('hero-parallax');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            heroParallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Stats Animation & Fade In
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('fade-in-section') || entry.target.classList.contains('stagger-item')) {
+                        entry.target.classList.add('is-visible');
+                    }
+                    if (entry.target.id === 'stats-grid') animateStats();
+                }
+                // Nav Dots Color Logic
+                if(sections.includes(`#${entry.target.id}`) && entry.intersectionRatio > 0.3) {
+                     const theme = entry.target.getAttribute('data-theme');
+                     const navContainer = document.getElementById('nav-dots');
+
+                     // Toggle color based on section theme
+                     if (theme === 'light') {
+                         navContainer.classList.add('nav-dark');
+                     } else {
+                         navContainer.classList.remove('nav-dark');
+                     }
+
+                     navDots.forEach(dot => {
+                        dot.classList.toggle('active', dot.getAttribute('data-target') === `#${entry.target.id}`);
+                     });
+                }
+            });
+        }, { threshold: [0, 0.3] });
+
+        document.querySelectorAll('.fade-in-section, .stagger-item, #stats-grid').forEach(el => observer.observe(el));
+
+        const sections = ['#hero', '#stats', '#approach', '#details', '#agenda', '#testimonials', '#faq', '#contact'];
+        const navDots = document.querySelectorAll('.nav-dot');
+        sections.forEach(id => {
+            const el = document.querySelector(id);
+            if(el) observer.observe(el);
+        });
+
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                document.querySelector(dot.getAttribute('data-target')).scrollIntoView({behavior: 'smooth'});
+            });
+        });
+
+        function animateStats() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const start = performance.now();
+                const update = (now) => {
+                    const time = Math.min((now - start) / duration, 1);
+                    const val = time * target;
+                    counter.innerText = target % 1 !== 0 ? val.toFixed(1) : Math.floor(val);
+                    if (time < 1) requestAnimationFrame(update);
+                    else counter.innerText = target;
+                };
+                requestAnimationFrame(update);
+            });
+        }
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.classList.remove('overflow-hidden');
+            });
+        });
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

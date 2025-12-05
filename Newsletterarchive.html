@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proflex Finance | Newsletter Archive</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bh: {
+              black: '#020617',
+              dark: '#020617',
+              gray: '#111827',
+              text: '#E5E7EB',
+              muted: '#9CA3AF',
+              gold: '#C9A961',
+              accent: '#FFFFFF',
+            },
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top, #0f172a, #020617 55%),
+        radial-gradient(circle at bottom, #020617, #000000);
+      color: #e5e7eb;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .glass {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .chip {
+      border-radius: 999px;
+      border-width: 1px;
+      border-color: rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.7);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-inline: 0.9rem;
+      padding-block: 0.35rem;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .chip-active {
+      border-color: #C9A961;
+      background: radial-gradient(circle at top left, #FACC6B22, #020617);
+      color: #F9FAFB;
+      box-shadow: 0 0 0 1px rgba(201, 169, 97, 0.22), 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.18);
+      transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      width: 220%;
+      height: 220%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(201, 169, 97, 0.5);
+    }
+
+    .post-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      border-color: rgba(201, 169, 97, 0.7);
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    .hero-bg {
+      mix-blend-mode: soft-light;
+      opacity: 0.85;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(0,0,0,0.96));
+    }
+
+    .post-body h1,
+    .post-body h2,
+    .post-body h3 {
+      font-family: "Playfair Display", serif;
+    }
+    .post-body h1 { font-size: 1.7rem; margin-bottom: 0.75rem; }
+    .post-body h2 { font-size: 1.3rem; margin-top: 1.4rem; margin-bottom: 0.5rem; }
+    .post-body p { margin-bottom: 0.75rem; line-height: 1.7; }
+    .post-body ul, .post-body ol { margin-left: 1.25rem; margin-bottom: 0.75rem; }
+    .post-body li { margin-bottom: 0.25rem; }
+    .post-body a { color: #C9A961; text-decoration: underline; text-decoration-thickness: 1px; }
+    .post-body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto;
+      border-radius: 0.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <!-- Navbar -->
+  <header class="fixed inset-x-0 top-0 z-30">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img
+            src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/Proflex_Square200xLogo_TransparentBlack.png"
+            class="h-9 w-9 object-contain brightness-0 invert"
+            alt="Proflex Logo"
+          />
+          <div>
+            <div class="font-serif text-sm tracking-[0.28em] uppercase text-slate-200">
+              Proflex Finance
+            </div>
+            <div class="text-xs text-slate-400">
+              Research & Newsletter Archive
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://blockstart.kit.com"
+          target="_blank"
+          class="hidden sm:inline-flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-slate-200 hover:text-bh-gold"
+        >
+          <i class="fa-solid fa-envelope-open-text text-[0.85rem]"></i>
+          Original Kit Archive
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative pt-28 pb-10 sm:pb-14 lg:pb-16 overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_#FACC6B33,_transparent_55%),_radial-gradient(circle_at_bottom,_#0EA5E922,_transparent_55%),_linear-gradient(to_bottom,_#020617,_#020617)]">
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=2100&auto=format&fit=crop"
+        alt="Market research and analytics"
+        class="w-full h-full object-cover hero-bg"
+      />
+    </div>
+
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid hero-grid gap-10 items-center">
+        <!-- Left -->
+        <div class="space-y-5">
+          <p class="text-[0.7rem] tracking-[0.35em] uppercase text-bh-gold">
+            WEEKLY INSIGHTS • MACRO • OPTIONS • STRATEGY
+          </p>
+
+          <h1
+            class="font-serif text-4xl sm:text-5xl lg:text-6xl leading-tight text-slate-50 drop-shadow-[0_0_40px_rgba(0,0,0,0.8)]"
+          >
+            Every Proflex note, <span class="text-bh-gold">all in one place.</span>
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-300 max-w-xl">
+            A clean archive for Growth Gazette, macro updates, Embark explainers and more —
+            searchable and ready to revisit anytime.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              onclick="document.getElementById('archive-section').scrollIntoView({ behavior: 'smooth' })"
+              class="btn-primary inline-flex items-center gap-2 rounded-full bg-bh-gold px-6 py-3 text-xs font-semibold tracking-[0.22em] text-black uppercase"
+            >
+              Browse Archive
+              <i class="fa-solid fa-arrow-down text-[0.7rem]"></i>
+            </button>
+
+            <a
+              href="https://rebrand.ly/ProflexFreeNewsletterSignup"
+              target="_blank"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-500/70 px-6 py-3 text-xs font-semibold tracking-[0.22em] uppercase text-slate-200 hover:border-bh-gold hover:text-bh-gold"
+            >
+              Join Newsletter
+              <i class="fa-solid fa-plus text-[0.7rem]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: simple stats -->
+        <div class="glass rounded-3xl px-5 sm:px-7 py-6 sm:py-7 border border-slate-600/50">
+          <p class="text-[0.65rem] tracking-[0.25em] uppercase text-slate-400 mb-4">
+            ARCHIVE SNAPSHOT
+          </p>
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <div id="stat-count" class="font-serif text-2xl sm:text-3xl text-bh-gold">–</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                Issues
+              </div>
+            </div>
+            <div>
+              <div id="stat-years" class="font-serif text-2xl sm:text-3xl text-slate-100">–</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                Years Covered
+              </div>
+            </div>
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-slate-100">Macro</div>
+              <div class="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">
+                & Strategy Focus
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archive Section -->
+  <main id="archive-section" class="pb-20 sm:pb-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-7">
+      <!-- Controls -->
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="font-serif text-2xl sm:text-3xl text-slate-50">
+          Newsletter archive
+        </h2>
+
+        <div class="flex flex-1 sm:flex-none gap-3 sm:justify-end">
+          <div class="relative flex-1 max-w-md">
+            <span class="absolute inset-y-0 left-3 flex items-center text-slate-500 text-xs">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search by title or topic"
+              class="w-full rounded-full bg-slate-900/80 border border-slate-600/70 pl-9 pr-4 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-bh-gold/70"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div id="filterBar" class="flex flex-wrap gap-2 text-[0.7rem]"></div>
+
+      <!-- Grid -->
+      <section
+        class="glass rounded-3xl border border-slate-700/70 p-4 sm:p-5 lg:p-6"
+      >
+        <div
+          id="postGrid"
+          class="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2"
+        ></div>
+
+        <div id="emptyState" class="hidden text-[0.8rem] text-slate-400 mt-2">
+          No issues match this search yet.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 text-center text-[0.7rem] text-slate-500">
+    © 2025 Proflex Finance LLC. All rights reserved.
+  </footer>
+
+  <!-- Modal for reading a full issue -->
+  <div
+    id="postModal"
+    class="fixed inset-0 z-40 hidden items-center justify-center modal-backdrop"
+  >
+    <div
+      class="relative mx-auto max-w-4xl w-[94vw] max-h-[90vh] glass rounded-3xl border border-slate-700/80 overflow-hidden flex flex-col"
+    >
+      <div class="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-slate-700/70">
+        <div class="flex flex-col gap-1">
+          <div id="modalTitle" class="font-serif text-base sm:text-lg text-slate-50 line-clamp-2"></div>
+          <div id="modalMeta" class="text-[0.7rem] text-slate-400"></div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            id="modalOriginalLink"
+            href="#"
+            target="_blank"
+            class="hidden sm:inline-flex items-center gap-1 text-[0.7rem] uppercase tracking-[0.18em] text-slate-300 hover:text-bh-gold"
+          >
+            View on Kit
+            <i class="fa-solid fa-arrow-up-right-from-square text-[0.6rem]"></i>
+          </a>
+          <button
+            id="modalClose"
+            class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white"
+          >
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+      <div
+        id="modalBody"
+        class="post-body px-4 sm:px-6 py-4 overflow-y-auto text-sm text-slate-100"
+      ></div>
+    </div>
+  </div>
+
+  <script>
+    const ARCHIVE_JSON_URL =
+      "https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/kit_archives.json";
+
+    let allPosts = [];
+    let filteredPosts = [];
+    let activeYear = "All";
+    let searchQuery = "";
+
+    const filterBar = document.getElementById("filterBar");
+    const postGrid = document.getElementById("postGrid");
+    const emptyState = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+
+    const statCount = document.getElementById("stat-count");
+    const statYears = document.getElementById("stat-years");
+
+    const postModal = document.getElementById("postModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMeta = document.getElementById("modalMeta");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+    const modalOriginalLink = document.getElementById("modalOriginalLink");
+
+    function parseYear(dateStr) {
+      if (!dateStr) return null;
+      const m = String(dateStr).match(/(\d{4})/);
+      return m ? m[1] : null;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) {
+        // Fallback: just return raw
+        return dateStr;
+      }
+      return d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    function buildFilters() {
+      const years = Array.from(
+        new Set(
+          allPosts
+            .map((p) => parseYear(p.date))
+            .filter((y) => y !== null)
+        )
+      ).sort((a, b) => b.localeCompare(a)); // desc
+
+      filterBar.innerHTML = "";
+
+      const items = ["All", ...years];
+
+      items.forEach((year) => {
+        const chip = document.createElement("button");
+        chip.className = "chip hover:border-bh-gold/80 hover:text-bh-gold";
+        chip.dataset.year = year;
+        chip.textContent = year === "All" ? "All Years" : year;
+
+        if (year === activeYear) {
+          chip.classList.add("chip-active");
+        }
+
+        chip.addEventListener("click", () => {
+          activeYear = year;
+          buildFilters();
+          applyFilters();
+        });
+
+        filterBar.appendChild(chip);
+      });
+
+      // Stats
+      statCount.textContent = allPosts.length.toString();
+      statYears.textContent = years.length ? `${years.length}` : "–";
+    }
+
+    function applyFilters() {
+      const q = searchQuery.trim().toLowerCase();
+
+      filteredPosts = allPosts.filter((p) => {
+        const year = parseYear(p.date);
+        const matchesYear = activeYear === "All" ? true : year === activeYear;
+
+        const matchesSearch =
+          !q ||
+          (p.title && p.title.toLowerCase().includes(q)) ||
+          (p.summary && p.summary.toLowerCase().includes(q));
+
+        return matchesYear && matchesSearch;
+      });
+
+      renderGrid();
+    }
+
+    function renderGrid() {
+      postGrid.innerHTML = "";
+
+      if (!filteredPosts.length) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+      emptyState.classList.add("hidden");
+
+      filteredPosts.forEach((post) => {
+        const card = document.createElement("article");
+        card.className =
+          "post-card glass border border-slate-700/70 rounded-2xl px-4 py-4 flex flex-col justify-between";
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-[0.6rem] tracking-[0.22em] uppercase text-bh-gold">
+                ${formatDate(post.date) || "Date not available"}
+              </p>
+            </div>
+            <h3 class="font-serif text-sm sm:text-base text-slate-50 line-clamp-2">
+              ${post.title}
+            </h3>
+            ${
+              post.summary
+                ? `<p class="text-[0.75rem] text-slate-400 line-clamp-3">${post.summary}</p>`
+                : ""
+            }
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[0.7rem] text-slate-400">
+            <span>Open issue</span>
+            <span class="inline-flex items-center gap-1 text-slate-300">
+              <i class="fa-solid fa-book-open text-[0.6rem]"></i>
+              Read
+            </span>
+          </div>
+        `;
+
+        card.addEventListener("click", () => openModal(post));
+
+        postGrid.appendChild(card);
+      });
+    }
+
+    function openModal(post) {
+      modalTitle.textContent = post.title || "";
+      const dateLabel = formatDate(post.date);
+      modalMeta.textContent = dateLabel || "";
+      modalBody.innerHTML = post.html || "<p>No content available.</p>";
+
+      if (post.url) {
+        modalOriginalLink.href = post.url;
+        modalOriginalLink.classList.remove("hidden");
+      } else {
+        modalOriginalLink.classList.add("hidden");
+      }
+
+      postModal.classList.remove("hidden");
+      postModal.classList.add("flex");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeModal() {
+      postModal.classList.add("hidden");
+      postModal.classList.remove("flex");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    async function loadArchive() {
+      try {
+        const res = await fetch(ARCHIVE_JSON_URL);
+        if (!res.ok) {
+          console.error("Failed to load kit_archives.json");
+          return;
+        }
+        const raw = await res.json();
+
+        allPosts = (raw || [])
+          .map((item) => ({
+            title: item.title || "",
+            slug: item.slug || "",
+            url: item.url || "",
+            date: item.date || "",
+            summary: item.summary || "",
+            html: item.html || "",
+          }))
+          .filter((p) => p.title);
+
+        // sort newest first by date, then title
+        allPosts.sort((a, b) => {
+          const ad = a.date || "";
+          const bd = b.date || "";
+          if (ad === bd) return (b.title || "").localeCompare(a.title || "");
+          return bd.localeCompare(ad);
+        });
+
+        buildFilters();
+        applyFilters();
+      } catch (err) {
+        console.error("Error loading archive", err);
+      }
+    }
+
+    // Events
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value || "";
+      applyFilters();
+    });
+
+    modalClose.addEventListener("click", closeModal);
+    postModal.addEventListener("click", (e) => {
+      if (e.target === postModal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !postModal.classList.contains("hidden")) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", loadArchive);
+  </script>
+</body>
+</html>

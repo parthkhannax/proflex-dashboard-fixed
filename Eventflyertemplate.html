@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proflex Informals - Exclusive Investment Meetup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #C9A227;
+            --gold-light: #E8D48A;
+            --gold-pale: #F5ECD4;
+            --navy: #1A2B4A;
+            --navy-light: #2D4263;
+            --cream: #FFFEF7;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .flyer {
+            width: 600px;
+            min-height: 920px;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Background shapes */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .bg-shape-1 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, var(--gold-pale) 0%, transparent 70%);
+            top: -100px;
+            right: -80px;
+            opacity: 0.6;
+        }
+
+        .bg-shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%);
+            bottom: 280px;
+            left: -100px;
+            opacity: 0.06;
+        }
+
+        /* Top accent */
+        .top-accent {
+            height: 6px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header section */
+        .header {
+            padding: 35px 40px 20px;
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .exclusive-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--navy);
+            color: var(--gold-light);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+        }
+
+        .exclusive-tag::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .brand-name span {
+            color: var(--gold);
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--navy-light);
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+
+        /* Beer Image Container */
+        .beer-container {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            margin-top: 10px;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(26, 43, 74, 0.15);
+            border: 3px solid var(--gold);
+        }
+
+        .beer-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Date, Location & Time Cards - PROMINENT */
+        .highlight-cards {
+            display: flex;
+            gap: 12px;
+            padding: 0 40px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 6;
+        }
+
+        .highlight-card {
+            flex: 1;
+            background: var(--white);
+            padding: 16px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(26, 43, 74, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .highlight-card:nth-child(2) {
+            border-left-color: var(--navy);
+        }
+
+        .highlight-card:nth-child(3) {
+            border-left-color: var(--gold);
+        }
+
+        .highlight-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gold-pale);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .highlight-card:nth-child(2) .highlight-icon {
+            background: rgba(26, 43, 74, 0.08);
+        }
+
+        .highlight-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+        }
+
+        .highlight-card:nth-child(2) .highlight-icon svg {
+            fill: var(--navy);
+        }
+
+        .highlight-content {
+            flex: 1;
+        }
+
+        .highlight-label {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--navy-light);
+            opacity: 0.6;
+            margin-bottom: 4px;
+        }
+
+        .highlight-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .highlight-sub {
+            font-size: 11px;
+            color: var(--navy-light);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* Diagonal section with agenda */
+        .diagonal-section {
+            position: relative;
+            margin-top: 25px;
+            padding: 55px 40px 60px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            clip-path: polygon(0 25px, 100% 0, 100% calc(100% - 15px), 0 100%);
+            z-index: 4;
+        }
+
+        .diagonal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .title-block {
+            max-width: 380px;
+        }
+
+        .year-review-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.35;
+            max-width: 350px;
+        }
+
+        .main-title span {
+            color: var(--gold-light);
+        }
+
+        .format-badge {
+            background: rgba(201, 162, 39, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 14px;
+            white-space: nowrap;
+        }
+
+        /* Agenda bullets */
+        .agenda-section {
+            margin-top: 5px;
+        }
+
+        .agenda-label {
+            font-size: 9px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .agenda-grid {
+            display: flex;
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .agenda-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .agenda-right {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+        }
+
+        .agenda-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .agenda-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .agenda-item:nth-child(2) .agenda-bullet {
+            background: var(--gold-light);
+        }
+
+        .agenda-item-highlight {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(201, 162, 39, 0.15);
+            padding: 18px 20px;
+            border-left: 3px solid var(--gold);
+            width: 100%;
+        }
+
+        .agenda-bullet-highlight {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .agenda-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .agenda-title {
+            color: var(--gold-light);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .agenda-sub {
+            color: rgba(255,255,255,0.65);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* Discussion Focus section */
+        .topics-section {
+            padding: 25px 40px 20px;
+            position: relative;
+            background: var(--white);
+            margin: 0 25px;
+            box-shadow: 0 4px 20px rgba(26, 43, 74, 0.06);
+            margin-top: -15px;
+            z-index: 5;
+        }
+
+        .topics-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section-label {
+            font-size: 9px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .topics-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+        }
+
+        .topics-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .topic {
+            background: transparent;
+            border: 1px solid rgba(26, 43, 74, 0.2);
+            color: var(--navy);
+            font-size: 11px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .topic:first-child {
+            background: var(--navy);
+            color: var(--gold-light);
+            border-color: var(--navy);
+        }
+
+        .topic:nth-child(2) {
+            background: var(--gold-pale);
+            border-color: var(--gold-pale);
+            color: var(--navy);
+        }
+
+        .topic:nth-child(3) {
+            background: transparent;
+            border-color: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Walk-in CTA section */
+        .cta-section {
+            padding: 25px 40px 25px;
+        }
+
+        .cta-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 28px;
+            background: linear-gradient(135deg, var(--gold-pale) 0%, rgba(201, 162, 39, 0.15) 100%);
+            border-left: 4px solid var(--gold);
+        }
+
+        .cta-text {
+            font-size: 12px;
+            color: var(--navy-light);
+        }
+
+        .cta-text strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--navy);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .walkin-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 14px 24px;
+        }
+
+        .walkin-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+        }
+
+        .walkin-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--navy);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--white);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-tag {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1.5px;
+        }
+
+        /* Decorative elements */
+        .line-accent {
+            position: absolute;
+            background: var(--gold);
+            opacity: 0.2;
+        }
+
+        .line-accent-1 {
+            width: 1px;
+            height: 100px;
+            top: 420px;
+            left: 25px;
+        }
+
+        .line-accent-2 {
+            width: 50px;
+            height: 1px;
+            bottom: 160px;
+            right: 25px;
+        }
+
+        .circle-deco {
+            position: absolute;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .circle-deco-1 {
+            width: 10px;
+            height: 10px;
+            top: 410px;
+            left: 23px;
+            background: var(--gold);
+            opacity: 0.25;
+        }
+
+        .circle-deco-2 {
+            width: 35px;
+            height: 35px;
+            bottom: 200px;
+            right: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .flyer {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer">
+        <!-- Background shapes -->
+        <div class="bg-shape bg-shape-1"></div>
+        <div class="bg-shape bg-shape-2"></div>
+
+        <!-- Decorative elements -->
+        <div class="line-accent line-accent-1"></div>
+        <div class="line-accent line-accent-2"></div>
+        <div class="circle-deco circle-deco-1"></div>
+        <div class="circle-deco circle-deco-2"></div>
+
+        <div class="top-accent"></div>
+
+        <!-- Header with Beer Image -->
+        <div class="header">
+            <div class="header-left">
+                <div class="exclusive-tag">Invite Only • December Edition</div>
+                <h1 class="brand-name">Proflex <span>Informals</span></h1>
+                <p class="brand-tagline">Exclusive Social Meetup Series</p>
+            </div>
+
+            <!-- Beer Image -->
+            <div class="beer-container">
+                <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/beer.jpg" alt="Cheers" class="beer-image">
+            </div>
+        </div>
+
+        <!-- Prominent Date & Location -->
+        <div class="highlight-cards">
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
+                    </svg>
+                </div>
+                <div class="highlight-content">
+                    <div class="highlight-label">Date</div>
+                    <div class="highlight-value">December 14</div>
+                    <div class="highlight-sub">Sunday, 2025</div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="highlight-content">
+                    <div class="highlight-label">Venue</div>
+                    <div class="highlight-value">Sunken Gardens Golf</div>
+                    <div class="highlight-sub">Sunnyvale</div>
+                </div>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                </div>
+                <div class="highlight-content">
+                    <div class="highlight-label">Time</div>
+                    <div class="highlight-value">2PM Onwards</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagonal section with Agenda -->
+        <div class="diagonal-section">
+            <div class="section-header">
+                <div class="title-block">
+                    <div class="year-review-badge">Proflex Year End Review 2025</div>
+                    <h2 class="main-title">
+                        Mental Models of <span>Investing</span><br>
+                        During Uncertainty
+                    </h2>
+                </div>
+                <div class="format-badge">In-Person</div>
+            </div>
+
+            <div class="agenda-section">
+                <div class="agenda-label">Agenda</div>
+                <div class="agenda-grid">
+                    <div class="agenda-left">
+                        <div class="agenda-item">
+                            <span class="agenda-bullet"></span>
+                            <span>Post FOMC Analysis</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-bullet"></span>
+                            <span>AI Trade Outlook</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-bullet"></span>
+                            <span>Crypto Institutional Adoption</span>
+                        </div>
+                    </div>
+                    <div class="agenda-right">
+                        <div class="agenda-item-highlight">
+                            <span class="agenda-bullet-highlight"></span>
+                            <div class="agenda-content">
+                                <span class="agenda-title">Ask Me Anything</span>
+                                <span class="agenda-sub">Open floor for investor perspectives & experiences</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discussion Focus -->
+        <div class="topics-section">
+            <div class="topics-header">
+                <div class="section-label">Discussion Focus</div>
+                <div class="topics-line"></div>
+            </div>
+            <div class="topics-flow">
+                <span class="topic">State of Market</span>
+                <span class="topic">Latest Macro Outlook</span>
+                <span class="topic">Year in Review</span>
+                <span class="topic">Market Psychology</span>
+                <span class="topic">Portfolio Strategy</span>
+            </div>
+        </div>
+
+        <!-- Walk-in CTA -->
+        <div class="cta-section">
+            <div class="cta-wrapper">
+                <div class="cta-text">
+                    Invite Only • No registration needed
+                    <strong>Just Show Up!</strong>
+                </div>
+                <div class="walkin-badge">
+                    <svg class="walkin-icon" viewBox="0 0 24 24">
+                        <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+                    </svg>
+                    <span class="walkin-text">Walk In</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer with Proflex Logo -->
+        <div class="footer">
+            <div class="footer-brand-section">
+                <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/Proflex_Square200xLogo_TransparentBlack.png" alt="Proflex" class="footer-logo">
+                <span class="footer-brand-name">Proflex Finance</span>
+            </div>
+            <div class="footer-tag">#ProflexInformals</div>
+        </div>
+    </div>
+</body>
+</html>

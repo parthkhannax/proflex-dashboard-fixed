@@ -1,0 +1,85 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Git specific
+.git/
+.gitignore
+
+# Common temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.swo
+
+# Dependency directories
+node_modules/
+vendor/
+build/
+dist/
+target/
+
+# Package managers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.parcel-cache/
+.vscode/
+
+# User-specific directories often found in home
+Applications/
+Desktop/
+Documents/
+Downloads/
+Library/
+Movies/
+Music/
+Pictures/
+Public/
+.Trash/
+.config/
+.cache/
+.local/
+.npm/
+.conda/
+.jupyter/
+.ipython/
+.continuum/
+.gemini/
+.vscode/
+.codeium/
+.codex/
+.streamlit/
+.anydesk/
+.flutter/
+.dart/
+.dart-tool/
+.pub-cache/
+.anaconda/
+.idlerc/
+.matplotlib/
+.zsh_history
+.zsh_sessions/
+.zprofile
+.lesshst
+.viminfo
+.tcshrc
+.bash_profile
+.CFUserTextEncoding
+.hwid
+.xonshrc
+
+# Specific to Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Specific to JavaScript
+.next/
+out/
+
+# Gemini CLI temp directory
+.gemini/tmp/

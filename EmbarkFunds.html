@@ -290,7 +290,7 @@
 
         /* Section Number */
         .section-number {
-            opacity: 0.03;
+            opacity: 0.05;
             font-size: 12rem;
             font-weight: 700;
             position: absolute;
@@ -299,6 +299,11 @@
             line-height: 1;
             pointer-events: none;
             transition: opacity 0.6s ease;
+        }
+
+        /* Section number on white background needs darker color */
+        .bg-white .section-number {
+            opacity: 0.15;
         }
 
         /* Navigation Dots */
@@ -316,17 +321,20 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(15, 23, 42, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
         }
         .nav-dot:hover {
             background: rgba(201, 169, 97, 0.6);
+            border-color: rgba(201, 169, 97, 0.8);
             transform: scale(1.3);
         }
         .nav-dot.active {
             background: #C9A961;
+            border-color: #C9A961;
             transform: scale(1.5);
             box-shadow: 0 0 20px rgba(201, 169, 97, 0.8);
         }
@@ -388,7 +396,8 @@
     <!-- Nav Dots -->
     <div id="nav-dots">
         <div class="nav-dot" data-tooltip="Mission" data-target="#approach"></div>
-        <div class="nav-dot" data-tooltip="Strategies" data-target="#products"></div>
+        <div class="nav-dot" data-tooltip="Features" data-target="#products"></div>
+        <div class="nav-dot" data-tooltip="Portfolio" data-target="#spvs"></div>
         <div class="nav-dot" data-tooltip="Advantages" data-target="#benefits"></div>
         <div class="nav-dot" data-tooltip="Insights" data-target="#insights"></div>
         <div class="nav-dot" data-tooltip="Investors" data-target="#community"></div>
@@ -407,7 +416,8 @@
 
             <div class="hidden lg:flex items-center space-x-10 text-xs tracking-[0.2em] uppercase font-medium">
                 <a href="#approach" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Mission</a>
-                <a href="#products" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Strategies</a>
+                <a href="#products" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Features</a>
+                <a href="#spvs" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Portfolio</a>
                 <a href="#benefits" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Advantages</a>
                 <a href="#insights" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Insights</a>
                 <a href="#contact" class="hover-underline-animation opacity-80 hover:opacity-100 transition-all">Contact</a>
@@ -422,7 +432,8 @@
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-bh-black/98 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center space-y-8">
         <a href="#approach" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Mission</a>
-        <a href="#products" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Strategies</a>
+        <a href="#products" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Features</a>
+        <a href="#spvs" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Portfolio</a>
         <a href="#benefits" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Advantages</a>
         <a href="#insights" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Insights</a>
         <a href="#contact" class="text-2xl font-serif mobile-link hover:text-bh-gold transition-all hover:scale-110">Contact</a>
@@ -470,7 +481,7 @@
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-gray-100 z-0">01</span>
+                    <span class="section-number font-serif text-gray-500 z-0">01</span>
                     <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Mission</h2>
                 </div>
 
@@ -505,7 +516,7 @@
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
                     <span class="section-number font-serif text-white">02</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Strategies</h2>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Features</h2>
                 </div>
 
                 <!-- Content -->
@@ -560,97 +571,229 @@
         </div>
     </section>
 
-    <!-- 03 ADVANTAGES (Changed to WHITE to maintain rhythm) -->
-    <section id="benefits" class="py-32 md:py-40 relative bg-white overflow-hidden">
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-             <!-- Section Label -->
-             <div class="mb-20 text-center fade-in-section">
-                <span class="text-xs font-bold uppercase tracking-[0.3em] text-bh-black border-b-2 border-bh-black pb-2">03 &nbsp; Advantages</span>
-                <h2 class="text-4xl md:text-6xl font-serif text-bh-black mt-8">Hallmarks of Embark</h2>
-            </div>
-
-            <!-- Grid Content -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20 fade-in-section">
-
-                <!-- Item 1 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                        <div class="hexagon-border border-gray-300"></div>
-                        <i class="fa-solid fa-lock text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Stable Yield</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Generate consistent income from assets that traditionally yield nothing.</p>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                         <div class="hexagon-border border-gray-300"></div>
-                         <i class="fa-solid fa-arrow-trend-up text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Accumulated Upside</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Strategies designed to capture growth while mitigating volatility.</p>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                         <div class="hexagon-border border-gray-300"></div>
-                         <i class="fa-solid fa-shield-halved text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Downside Protection</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Sophisticated hedging to protect your principal wealth.</p>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                         <div class="hexagon-border border-gray-300"></div>
-                         <i class="fa-solid fa-file-invoice-dollar text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Tax Efficiency</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Defer taxes on highly appreciated assets while diversifying.</p>
-                </div>
-
-                <!-- Item 5 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                         <div class="hexagon-border border-gray-300"></div>
-                         <i class="fa-solid fa-users-viewfinder text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Expert Management</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Managed by veterans in private equity and tax structuring.</p>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="benefit-card text-center group cursor-default">
-                    <div class="hexagon-wrapper">
-                         <div class="hexagon-border border-gray-300"></div>
-                         <i class="fa-solid fa-droplet text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
-                    </div>
-                    <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Strategic Liquidity</h4>
-                    <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Access capital for new opportunities without liquidating core holdings.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 04 INSIGHTS (Changed to DARK to maintain rhythm) -->
-    <section id="insights" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
+    <!-- 03 SPV PORTFOLIO (WHITE - Ultra Premium) -->
+    <section id="spvs" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
         <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-white">04</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Insights</h2>
+                    <span class="section-number font-serif text-gray-500 z-0">03</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Portfolio</h2>
+                </div>
+
+                <!-- Content -->
+                <div class="md:w-3/4 space-y-20 fade-in-section">
+                    <div>
+                        <h3 class="text-4xl md:text-6xl font-serif leading-tight mb-10 text-bh-black">
+                            SPV Investments
+                        </h3>
+                        <p class="text-gray-600 text-xl leading-relaxed max-w-3xl font-light mb-16">
+                            Strategic Special Purpose Vehicles focused on premier technology companies, combining institutional-grade execution with exclusive access opportunities.
+                        </p>
+
+                        <!-- Launched SPVs -->
+                        <div class="mb-20">
+                            <div class="flex items-center gap-4 mb-10">
+                                <div class="h-px flex-grow bg-gradient-to-r from-bh-gold to-transparent"></div>
+                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-bh-black">Launched</h4>
+                                <div class="h-px flex-grow bg-gradient-to-l from-bh-gold to-transparent"></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-item">
+                                <!-- META Card -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-bh-gold/10 to-transparent rounded-bl-full transition-all duration-500 group-hover:w-40 group-hover:h-40"></div>
+                                    <div class="relative z-10">
+                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
+                                            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/meta.webp" alt="Meta Logo" class="w-full h-full object-contain">
+                                        </div>
+                                        <h5 class="text-3xl font-serif text-bh-black mb-3 font-bold">META</h5>
+                                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Meta Platforms Inc.</p>
+                                        <div class="inline-block px-4 py-2 bg-green-100 text-green-800 text-xs font-bold uppercase tracking-wider rounded-full">
+                                            Active
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- GOOGL Card -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-bh-gold/10 to-transparent rounded-bl-full transition-all duration-500 group-hover:w-40 group-hover:h-40"></div>
+                                    <div class="relative z-10">
+                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
+                                            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/googl.webp" alt="Google Logo" class="w-full h-full object-contain">
+                                        </div>
+                                        <h5 class="text-3xl font-serif text-bh-black mb-3 font-bold">GOOGL</h5>
+                                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Alphabet Inc.</p>
+                                        <div class="inline-block px-4 py-2 bg-green-100 text-green-800 text-xs font-bold uppercase tracking-wider rounded-full">
+                                            Active
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming SPVs -->
+                        <div>
+                            <div class="flex items-center gap-4 mb-10">
+                                <div class="h-px flex-grow bg-gradient-to-r from-bh-gold/50 to-transparent"></div>
+                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-gray-600">Upcoming</h4>
+                                <div class="h-px flex-grow bg-gradient-to-l from-bh-gold/50 to-transparent"></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-item">
+                                <!-- AAPL Card -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                    <div class="relative z-10">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/apple.svg" alt="Apple Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
+                                        </div>
+                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">AAPL</h5>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Apple Inc.</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                            Coming Soon
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- AMD Card -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                    <div class="relative z-10">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/amd.png" alt="AMD Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
+                                        </div>
+                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">AMD</h5>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Advanced Micro Devices</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                            Coming Soon
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- NVDA Card -->
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                    <div class="relative z-10">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                            <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/nvda.png" alt="NVIDIA Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
+                                        </div>
+                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">NVDA</h5>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">NVIDIA Corporation</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                            Coming Soon
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-16 pt-12 border-t border-gray-200">
+                            <p class="text-gray-500 text-sm font-light italic text-center max-w-2xl mx-auto">
+                                Each SPV is structured to provide tax-efficient exposure to premier technology companies while generating consistent income through sophisticated option strategies.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 ADVANTAGES (Changed to DARK to maintain rhythm) -->
+    <section id="benefits" class="py-32 md:py-40 relative bg-bh-black text-white border-t border-white/10 overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="flex flex-col md:flex-row gap-20">
+                <!-- Section Label -->
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-white z-0">04</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Advantages</h2>
+                </div>
+
+                <!-- Content -->
+                <div class="md:w-3/4 fade-in-section">
+                    <h3 class="text-4xl md:text-6xl font-serif text-white mb-16">Hallmarks of Embark</h3>
+
+                    <!-- Grid Content -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20">
+
+                        <!-- Item 1 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-lock text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Stable Yield</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Generate consistent income from assets that traditionally yield nothing.</p>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-arrow-trend-up text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Accumulated Upside</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Strategies designed to capture growth while mitigating volatility.</p>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-shield-halved text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Downside Protection</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Sophisticated hedging to protect your principal wealth.</p>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-file-invoice-dollar text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Tax Efficiency</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Defer taxes on highly appreciated assets while diversifying.</p>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-users-viewfinder text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Expert Management</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Managed by veterans in private equity and tax structuring.</p>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="benefit-card text-center group cursor-default">
+                            <div class="hexagon-wrapper">
+                                <div class="hexagon-border border-white/20"></div>
+                                <i class="fa-solid fa-droplet text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Strategic Liquidity</h4>
+                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Access capital for new opportunities without liquidating core holdings.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 INSIGHTS (Changed to WHITE to maintain rhythm) -->
+    <section id="insights" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                <!-- Section Label -->
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-gray-500">05</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Insights</h2>
                 </div>
 
                 <!-- Content -->
                 <div class="md:w-3/4 fade-in-section">
                     <div class="mb-12">
-                        <h3 class="text-4xl md:text-6xl font-serif mb-8 text-white">Investment Thesis</h3>
-                        <p class="text-bh-muted font-light text-xl max-w-2xl leading-relaxed">
+                        <h3 class="text-4xl md:text-6xl font-serif mb-8 text-bh-black">Embark Explainer Videos</h3>
+                        <p class="text-gray-600 font-light text-xl max-w-2xl leading-relaxed">
                             Understand the mechanics of unlocking value. View our explainer videos and read about our structured approach to wealth preservation.
                         </p>
                     </div>
@@ -689,7 +832,7 @@
                     </div>
 
                     <div class="mt-16 text-center">
-                        <a href="#" class="btn-primary inline-block border-3 border-white text-white px-12 py-5 uppercase tracking-widest text-xs font-bold hover:bg-white hover:text-black transition-all">
+                        <a href="#" class="btn-primary inline-block border-2 border-bh-black text-bh-black px-12 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-gold hover:text-black hover:border-bh-gold transition-all">
                             Learn More
                         </a>
                     </div>
@@ -698,35 +841,35 @@
         </div>
     </section>
 
-    <!-- 05 INVESTORS (Changed to WHITE to maintain rhythm) -->
-    <section id="community" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
+    <!-- 06 INVESTORS (Changed to DARK to maintain rhythm) -->
+    <section id="community" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
         <div class="container mx-auto px-6 md:px-12">
              <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-gray-100 z-0">05</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Investors</h2>
+                    <span class="section-number font-serif text-white z-0">06</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Investors</h2>
                 </div>
 
                 <div class="md:w-3/4 fade-in-section">
-                    <h3 class="text-4xl md:text-6xl font-serif mb-16 text-bh-black">Who We Serve</h3>
+                    <h3 class="text-4xl md:text-6xl font-serif mb-16 text-white">Who We Serve</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div class="border-l-2 border-gray-200 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Long-term Holders</h4>
-                            <p class="text-gray-600 font-light text-lg">Investors with significant appreciated assets looking for liquidity without selling.</p>
+                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-white">Long-term Holders</h4>
+                            <p class="text-bh-muted font-light text-lg">Investors with significant appreciated assets looking for liquidity without selling.</p>
                         </div>
-                        <div class="border-l-2 border-gray-200 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Founders & Executives</h4>
-                            <p class="text-gray-600 font-light text-lg">Individuals holding concentrated equity positions seeking diversification.</p>
+                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-white">Founders & Executives</h4>
+                            <p class="text-bh-muted font-light text-lg">Individuals holding concentrated equity positions seeking diversification.</p>
                         </div>
-                        <div class="border-l-2 border-gray-200 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Family Offices</h4>
-                            <p class="text-gray-600 font-light text-lg">Entities managing generational wealth requiring tax-efficient yield strategies.</p>
+                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-white">Family Offices</h4>
+                            <p class="text-bh-muted font-light text-lg">Entities managing generational wealth requiring tax-efficient yield strategies.</p>
                         </div>
-                        <div class="border-l-2 border-gray-200 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Early Employees</h4>
-                            <p class="text-gray-600 font-light text-lg">Holders of pre-IPO stock or early equity looking to realize value.</p>
+                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-white">Early Employees</h4>
+                            <p class="text-bh-muted font-light text-lg">Holders of pre-IPO stock or early equity looking to realize value.</p>
                         </div>
                     </div>
                 </div>
@@ -734,38 +877,38 @@
         </div>
     </section>
 
-    <!-- 06 CONTACT (Changed to DARK to maintain rhythm) -->
-    <section id="contact" class="py-32 md:py-40 bg-bh-black text-white relative border-t border-white/10">
+    <!-- 07 CONTACT (Changed to WHITE to maintain rhythm) -->
+    <section id="contact" class="py-32 md:py-40 bg-white text-bh-black relative">
          <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                  <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-white">06</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Contact</h2>
+                    <span class="section-number font-serif text-gray-500">07</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Contact</h2>
                 </div>
 
                 <div class="md:w-3/4 grid grid-cols-1 gap-12 fade-in-section">
                     <div class="max-w-2xl">
-                        <h4 class="font-serif text-4xl md:text-6xl mb-10 text-white leading-tight">Start the Conversation.</h4>
-                        <p class="text-bh-muted font-light text-xl mb-14 leading-relaxed">Schedule a meeting with one of our experts to discuss how Embark Fund can help you unlock value.</p>
+                        <h4 class="font-serif text-4xl md:text-6xl mb-10 text-bh-black leading-tight">Start the Conversation.</h4>
+                        <p class="text-gray-600 font-light text-xl mb-14 leading-relaxed">Schedule a meeting with one of our experts to discuss how Embark Fund can help you unlock value.</p>
 
                         <div class="flex flex-col sm:flex-row gap-6">
-                            <a href="mailto:investor.relations@embarkfunds.com" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-widest text-xs font-bold hover:bg-white transition-all text-center">
+                            <a href="mailto:investor.relations@embarkfunds.com" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-black hover:text-white transition-all text-center">
                                 Email Investor Relations
                             </a>
-                            <a href="#" class="btn-primary border-2 border-white/30 text-white px-10 py-5 uppercase tracking-widest text-xs hover:border-white hover:bg-white/10 transition-all text-center font-bold">
+                            <a href="#" class="btn-primary border-2 border-gray-300 text-bh-black px-10 py-5 uppercase tracking-widest text-xs hover:border-bh-gold hover:bg-bh-gold/10 transition-all text-center font-bold">
                                 Schedule Consultation
                             </a>
                         </div>
                     </div>
 
-                    <div class="mt-16 pt-16 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-bh-muted font-light">
+                    <div class="mt-16 pt-16 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-gray-600 font-light">
                         <div>
-                            <p class="uppercase tracking-widest mb-3 text-white font-bold">Email</p>
-                            <a href="mailto:investor.relations@embarkfunds.com" class="hover:text-bh-gold transition-colors text-lg">investor.relations@embarkfunds.com</a>
+                            <p class="uppercase tracking-widest mb-3 text-bh-black font-bold">Email</p>
+                            <a href="mailto:investor.relations@embarkfunds.com" class="hover:text-bh-gold transition-colors text-lg text-bh-black">investor.relations@embarkfunds.com</a>
                         </div>
                         <div>
-                            <p class="uppercase tracking-widest mb-3 text-white font-bold">Phone</p>
-                            <a href="tel:+14084830214" class="hover:text-bh-gold transition-colors text-lg">+1 (408) 483-0214</a>
+                            <p class="uppercase tracking-widest mb-3 text-bh-black font-bold">Phone</p>
+                            <a href="tel:+14084830214" class="hover:text-bh-gold transition-colors text-lg text-bh-black">+1 (408) 483-0214</a>
                         </div>
                     </div>
                 </div>
@@ -842,7 +985,7 @@
 
         // Nav Dots & Mobile Menu
         const navDots = document.querySelectorAll('.nav-dot');
-        const sections = ['#approach', '#products', '#benefits', '#insights', '#community', '#contact'];
+        const sections = ['#approach', '#products', '#spvs', '#benefits', '#insights', '#community', '#contact'];
 
         navDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {

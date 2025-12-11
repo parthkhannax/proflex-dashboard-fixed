@@ -196,8 +196,8 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Hexagon Icon Container */
-        .hexagon-wrapper {
+        /* Circle Icon Container */
+        .circle-wrapper {
             position: relative;
             width: 80px;
             height: 80px;
@@ -206,18 +206,18 @@
             align-items: center;
             margin: 0 auto 2rem auto;
         }
-        .hexagon-border {
+        .circle-border {
             position: absolute;
             inset: 0;
-            border: 1px solid;
+            border: 2px solid;
+            border-radius: 50%;
             /* Border color set dynamically in sections */
-            transform: rotate(45deg);
             transition: all 0.5s ease;
         }
-        .benefit-card:hover .hexagon-border {
+        .benefit-card:hover .circle-border {
             border-color: #C9A961 !important;
-            transform: rotate(225deg);
             background: rgba(201, 169, 97, 0.1);
+            transform: scale(1.1);
         }
 
         /* Horizontal Scroll */
@@ -380,6 +380,129 @@
             box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4);
         }
 
+        /* Popup Modal Styles */
+        #interest-popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 99999 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #interest-popup.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #interest-popup.active .popup-content {
+            transform: scale(1);
+        }
+        .popup-content {
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.8);
+        }
+        .popup-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .popup-content::-webkit-scrollbar-thumb {
+            background: #C9A961;
+            border-radius: 10px;
+        }
+
+        /* HubSpot Form Custom Styling */
+        #hubspot-form-container .hs-form {
+            font-family: 'Inter', sans-serif !important;
+        }
+        #hubspot-form-container .hs-form label {
+            color: #e2e8f0 !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            margin-bottom: 0.5rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+        }
+        #hubspot-form-container .hs-form input[type="text"],
+        #hubspot-form-container .hs-form input[type="email"],
+        #hubspot-form-container .hs-form input[type="tel"],
+        #hubspot-form-container .hs-form select,
+        #hubspot-form-container .hs-form textarea {
+            width: 100% !important;
+            padding: 0.75rem 1rem !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 0.5rem !important;
+            color: white !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+        #hubspot-form-container .hs-form input:focus,
+        #hubspot-form-container .hs-form select:focus,
+        #hubspot-form-container .hs-form textarea:focus {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: #C9A961 !important;
+            outline: none !important;
+        }
+        #hubspot-form-container .hs-form .hs-input::placeholder {
+            color: #94a3b8 !important;
+        }
+        #hubspot-form-container .hs-form .hs-field-desc {
+            color: #94a3b8 !important;
+            font-size: 0.75rem !important;
+        }
+        #hubspot-form-container .hs-form .hs-error-msgs {
+            list-style: none !important;
+            padding: 0 !important;
+            margin-top: 0.5rem !important;
+        }
+        #hubspot-form-container .hs-form .hs-error-msg {
+            color: #ff6b6b !important;
+            font-size: 0.75rem !important;
+        }
+        #hubspot-form-container .hs-form .hs-button {
+            width: 100% !important;
+            padding: 1rem 2rem !important;
+            background: #C9A961 !important;
+            color: #000 !important;
+            border: none !important;
+            border-radius: 0.5rem !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.2em !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            margin-top: 1.5rem !important;
+        }
+        #hubspot-form-container .hs-form .hs-button:hover {
+            background: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3) !important;
+        }
+        #hubspot-form-container .hs-form .hs-form-field {
+            margin-bottom: 1.5rem !important;
+        }
+        #hubspot-form-container .hs-form .hs-form-required {
+            color: #C9A961 !important;
+        }
+        #hubspot-form-container .hs-richtext {
+            color: #94a3b8 !important;
+        }
+        #hubspot-form-container .legal-consent-container .hs-form-booleancheckbox-display {
+            color: #e2e8f0 !important;
+        }
+        #hubspot-form-container .hs-form-booleancheckbox input[type="checkbox"] {
+            width: auto !important;
+            margin-right: 0.5rem !important;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .section-number {
@@ -399,6 +522,10 @@
             }
             #nav-dots { display: none; }
             .video-card { min-width: 320px; max-width: 320px; }
+            .popup-content {
+                max-height: 95vh;
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
@@ -410,6 +537,7 @@
     <!-- Nav Dots -->
     <div id="nav-dots">
         <div class="nav-dot" data-tooltip="Mission" data-target="#approach"></div>
+        <div class="nav-dot" data-tooltip="Explainer" data-target="#explainer"></div>
         <div class="nav-dot" data-tooltip="Features" data-target="#products"></div>
         <div class="nav-dot" data-tooltip="Portfolio" data-target="#spvs"></div>
         <div class="nav-dot" data-tooltip="Advantages" data-target="#benefits"></div>
@@ -523,56 +651,104 @@
         </div>
     </section>
 
-    <!-- 02 STRATEGIES (Changed to DARK to maintain rhythm) -->
-    <section id="products" class="py-32 md:py-40 relative bg-bh-black border-t border-white/10 overflow-hidden">
+    <!-- 02 EMBARK EXPLAINER (DARK) -->
+    <section id="explainer" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
         <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-white">02</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Features</h2>
+                    <span class="section-number font-serif text-white z-0">02</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">How It Works</h2>
+                </div>
+
+                <!-- Content -->
+                <div class="md:w-3/4 space-y-20 fade-in-section">
+                    <div>
+                        <h3 class="text-4xl md:text-6xl font-serif leading-tight mb-10 text-white">
+                            Understanding Embark
+                        </h3>
+                        <p class="text-bh-muted text-xl leading-relaxed max-w-3xl font-light mb-16">
+                            Discover how Embark Fund enables you to unlock liquidity from your appreciated assets without triggering a taxable event. Watch our comprehensive explainer to understand the mechanics.
+                        </p>
+
+                        <!-- Video -->
+                        <div class="relative rounded-xl overflow-hidden shadow-2xl group cursor-pointer max-w-4xl" onclick="window.open('https://www.youtube.com/watch?v=LdhV5RiBzl0', '_blank')">
+                            <img src="https://img.youtube.com/vi/LdhV5RiBzl0/maxresdefault.jpg"
+                                 alt="Embark Fund Explainer"
+                                 class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-24 h-24 bg-bh-gold rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white">
+                                    <i class="fa-solid fa-play text-black text-3xl ml-1"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-8">
+                                <p class="text-white text-sm uppercase tracking-wider font-bold">Core Concept</p>
+                                <h4 class="text-white font-serif text-3xl mt-2">Embark Fund Explainer</h4>
+                            </div>
+                        </div>
+
+                        <div class="mt-12">
+                            <a href="#contact" class="btn-primary inline-block bg-bh-gold text-black px-10 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-white transition-all">
+                                Get Started <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 STRATEGIES (WHITE to maintain rhythm) -->
+    <section id="products" class="py-32 md:py-40 relative bg-white border-t border-gray-200 overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-20">
+                <!-- Section Label -->
+                <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
+                    <span class="section-number font-serif text-gray-500">03</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Features</h2>
                 </div>
 
                 <!-- Content -->
                 <div class="md:w-3/4 fade-in-section">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                        <!-- Card 1 - Glass -->
-                        <div class="glass-card stagger-item p-10 flex flex-col rounded-xl relative group">
-                            <h4 class="text-xs uppercase tracking-[0.25em] text-bh-muted mb-5 font-bold">Core</h4>
-                            <h3 class="text-3xl font-serif text-white mb-8 font-bold">Unlock<br>Value</h3>
-                            <p class="text-sm text-bh-text font-light mb-10 flex-grow leading-relaxed">Access returns from your appreciated assets immediately.</p>
-                            <ul class="space-y-4 mb-12 text-sm font-light text-bh-muted">
+                        <!-- Card 1 -->
+                        <div class="stagger-item p-10 flex flex-col rounded-xl relative group bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                            <h4 class="text-xs uppercase tracking-[0.25em] text-gray-500 mb-5 font-bold">Core</h4>
+                            <h3 class="text-3xl font-serif text-bh-black mb-8 font-bold">Unlock<br>Value</h3>
+                            <p class="text-sm text-gray-600 font-light mb-10 flex-grow leading-relaxed">Access returns from your appreciated assets immediately.</p>
+                            <ul class="space-y-4 mb-12 text-sm font-light text-gray-600">
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> No asset sale required</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Maintain ownership exposure</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Immediate liquidity</li>
                             </ul>
                         </div>
 
-                        <!-- Card 2 - Highlighted Glass -->
-                        <div class="glass-card stagger-item p-10 relative flex flex-col shadow-2xl rounded-xl transform lg:-translate-y-3 border-bh-gold/50">
+                        <!-- Card 2 - Highlighted -->
+                        <div class="stagger-item p-10 relative flex flex-col shadow-2xl rounded-xl transform lg:-translate-y-3 bg-gradient-to-br from-gray-50 to-white border-2 border-bh-gold">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-bh-gold to-white"></div>
                             <h4 class="text-xs uppercase tracking-[0.25em] text-bh-gold mb-5 font-bold">Advantage</h4>
-                            <h3 class="text-3xl font-serif text-white mb-8 font-bold">Growth +<br>Income</h3>
-                            <p class="text-sm text-bh-muted font-light mb-10 flex-grow leading-relaxed">Sophisticated amped strategies earning time premium.</p>
-                            <ul class="space-y-4 mb-12 text-sm font-light text-bh-muted">
+                            <h3 class="text-3xl font-serif text-bh-black mb-8 font-bold">Growth +<br>Income</h3>
+                            <p class="text-sm text-gray-600 font-light mb-10 flex-grow leading-relaxed">Sophisticated amped strategies earning time premium.</p>
+                            <ul class="space-y-4 mb-12 text-sm font-light text-gray-600">
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Consistent yield generation</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Downside protection</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Upside participation</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Professional management</li>
                             </ul>
-                            <a href="#contact" class="btn-primary w-full py-5 bg-bh-gold text-black font-bold text-center text-xs uppercase tracking-widest hover:bg-white transition-all">
+                            <a href="#contact" class="btn-primary w-full py-5 bg-bh-gold text-black font-bold text-center text-xs uppercase tracking-widest hover:bg-bh-black hover:text-white transition-all">
                                 Get Details
                             </a>
                         </div>
 
-                        <!-- Card 3 - Glass -->
-                        <div class="glass-card stagger-item p-10 relative flex flex-col rounded-xl group">
+                        <!-- Card 3 -->
+                        <div class="stagger-item p-10 relative flex flex-col rounded-xl group bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-bh-gold to-white opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                            <h4 class="text-xs uppercase tracking-[0.25em] text-bh-muted mb-5 font-bold">Structure</h4>
-                            <h3 class="text-3xl font-serif text-white mb-8 font-bold">No Tax<br>Event</h3>
-                            <p class="text-sm text-bh-text font-light mb-10 flex-grow leading-relaxed">Efficient structuring for long-term wealth preservation.</p>
-                            <ul class="space-y-4 mb-12 text-sm font-light text-bh-muted">
+                            <h4 class="text-xs uppercase tracking-[0.25em] text-gray-500 mb-5 font-bold">Structure</h4>
+                            <h3 class="text-3xl font-serif text-bh-black mb-8 font-bold">No Tax<br>Event</h3>
+                            <p class="text-sm text-gray-600 font-light mb-10 flex-grow leading-relaxed">Efficient structuring for long-term wealth preservation.</p>
+                            <ul class="space-y-4 mb-12 text-sm font-light text-gray-600">
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Tax-deferred contributions</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> In-kind transfer</li>
                                 <li class="flex items-start gap-3"><span class="text-bh-gold font-bold">→</span> Estate planning benefits</li>
@@ -585,23 +761,23 @@
         </div>
     </section>
 
-    <!-- 03 SPV PORTFOLIO (WHITE - Ultra Premium) -->
-    <section id="spvs" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
+    <!-- 04 SPV PORTFOLIO (DARK - Ultra Premium) -->
+    <section id="spvs" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
         <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-gray-500 z-0">03</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Portfolio</h2>
+                    <span class="section-number font-serif text-white z-0">04</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Portfolio</h2>
                 </div>
 
                 <!-- Content -->
                 <div class="md:w-3/4 space-y-20 fade-in-section">
                     <div>
-                        <h3 class="text-4xl md:text-6xl font-serif leading-tight mb-10 text-bh-black">
+                        <h3 class="text-4xl md:text-6xl font-serif leading-tight mb-10 text-white">
                             SPV Investments
                         </h3>
-                        <p class="text-gray-600 text-xl leading-relaxed max-w-3xl font-light mb-16">
+                        <p class="text-bh-muted text-xl leading-relaxed max-w-3xl font-light mb-16">
                             Strategic Special Purpose Vehicles focused on premier technology companies, combining institutional-grade execution with exclusive access opportunities.
                         </p>
 
@@ -609,38 +785,44 @@
                         <div class="mb-20">
                             <div class="flex items-center gap-4 mb-10">
                                 <div class="h-px flex-grow bg-gradient-to-r from-bh-gold to-transparent"></div>
-                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-bh-black">Launched</h4>
+                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-white">Launched</h4>
                                 <div class="h-px flex-grow bg-gradient-to-l from-bh-gold to-transparent"></div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-item">
                                 <!-- META Card -->
-                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-bh-dark to-bh-gray border-2 border-white/10 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-bh-gold/10 to-transparent rounded-bl-full transition-all duration-500 group-hover:w-40 group-hover:h-40"></div>
                                     <div class="relative z-10">
-                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
+                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white/5 rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
                                             <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/meta.webp" alt="Meta Logo" class="w-full h-full object-contain">
                                         </div>
-                                        <h5 class="text-3xl font-serif text-bh-black mb-3 font-bold">META</h5>
-                                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Meta Platforms Inc.</p>
-                                        <div class="inline-block px-4 py-2 bg-green-100 text-green-800 text-xs font-bold uppercase tracking-wider rounded-full">
+                                        <h5 class="text-3xl font-serif text-white mb-3 font-bold">META</h5>
+                                        <p class="text-sm text-bh-muted uppercase tracking-wider mb-4">Meta Platforms Inc.</p>
+                                        <div class="inline-block px-4 py-2 bg-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wider rounded-full mb-6">
                                             Active
                                         </div>
+                                        <button onclick="openInterestPopup('META')" class="w-full mt-4 py-3 bg-bh-gold text-black font-bold text-center text-xs uppercase tracking-widest hover:bg-white transition-all rounded-lg">
+                                            Show Interest
+                                        </button>
                                     </div>
                                 </div>
 
                                 <!-- GOOGL Card -->
-                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-bh-dark to-bh-gray border-2 border-white/10 hover:border-bh-gold rounded-xl p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-bh-gold/10 to-transparent rounded-bl-full transition-all duration-500 group-hover:w-40 group-hover:h-40"></div>
                                     <div class="relative z-10">
-                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
+                                        <div class="w-16 h-16 mb-6 flex items-center justify-center bg-white/5 rounded-lg group-hover:bg-bh-gold/10 transition-all p-3">
                                             <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/googl.webp" alt="Google Logo" class="w-full h-full object-contain">
                                         </div>
-                                        <h5 class="text-3xl font-serif text-bh-black mb-3 font-bold">GOOGL</h5>
-                                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Alphabet Inc.</p>
-                                        <div class="inline-block px-4 py-2 bg-green-100 text-green-800 text-xs font-bold uppercase tracking-wider rounded-full">
+                                        <h5 class="text-3xl font-serif text-white mb-3 font-bold">GOOGL</h5>
+                                        <p class="text-sm text-bh-muted uppercase tracking-wider mb-4">Alphabet Inc.</p>
+                                        <div class="inline-block px-4 py-2 bg-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wider rounded-full mb-6">
                                             Active
                                         </div>
+                                        <button onclick="openInterestPopup('GOOGL')" class="w-full mt-4 py-3 bg-bh-gold text-black font-bold text-center text-xs uppercase tracking-widest hover:bg-white transition-all rounded-lg">
+                                            Show Interest
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -650,57 +832,66 @@
                         <div>
                             <div class="flex items-center gap-4 mb-10">
                                 <div class="h-px flex-grow bg-gradient-to-r from-bh-gold/50 to-transparent"></div>
-                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-gray-600">Upcoming</h4>
+                                <h4 class="text-sm uppercase tracking-[0.3em] font-bold text-bh-muted">Upcoming</h4>
                                 <div class="h-px flex-grow bg-gradient-to-l from-bh-gold/50 to-transparent"></div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-item">
                                 <!-- AAPL Card -->
-                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-bh-dark/50 to-bh-gray/50 border-2 border-dashed border-white/20 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                                     <div class="relative z-10">
-                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white/5 rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
                                             <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/apple.svg" alt="Apple Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
                                         </div>
-                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">AAPL</h5>
-                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Apple Inc.</p>
-                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                        <h5 class="text-2xl font-serif text-white mb-2 font-bold">AAPL</h5>
+                                        <p class="text-xs text-bh-muted uppercase tracking-wider mb-4">Apple Inc.</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-gold text-xs font-bold uppercase tracking-wider rounded-full mb-4">
                                             Coming Soon
                                         </div>
+                                        <button onclick="openInterestPopup('AAPL')" class="w-full mt-4 py-2.5 bg-white/10 text-white font-bold text-center text-xs uppercase tracking-widest hover:bg-bh-gold hover:text-black transition-all rounded-lg border border-white/20">
+                                            Show Interest
+                                        </button>
                                     </div>
                                 </div>
 
                                 <!-- AMD Card -->
-                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-bh-dark/50 to-bh-gray/50 border-2 border-dashed border-white/20 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                                     <div class="relative z-10">
-                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white/5 rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
                                             <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/amd.png" alt="AMD Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
                                         </div>
-                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">AMD</h5>
-                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Advanced Micro Devices</p>
-                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                        <h5 class="text-2xl font-serif text-white mb-2 font-bold">AMD</h5>
+                                        <p class="text-xs text-bh-muted uppercase tracking-wider mb-4">Advanced Micro Devices</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-gold text-xs font-bold uppercase tracking-wider rounded-full mb-4">
                                             Coming Soon
                                         </div>
+                                        <button onclick="openInterestPopup('AMD')" class="w-full mt-4 py-2.5 bg-white/10 text-white font-bold text-center text-xs uppercase tracking-widest hover:bg-bh-gold hover:text-black transition-all rounded-lg border border-white/20">
+                                            Show Interest
+                                        </button>
                                     </div>
                                 </div>
 
                                 <!-- NVDA Card -->
-                                <div class="group relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-300 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                                <div class="group relative overflow-hidden bg-gradient-to-br from-bh-dark/50 to-bh-gray/50 border-2 border-dashed border-white/20 hover:border-bh-gold rounded-xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
                                     <div class="relative z-10">
-                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
+                                        <div class="w-14 h-14 mb-5 flex items-center justify-center bg-white/5 rounded-lg group-hover:bg-bh-gold/10 transition-all p-2.5">
                                             <img src="https://48102387.fs1.hubspotusercontent-na1.net/hubfs/48102387/nvda.png" alt="NVIDIA Logo" class="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all">
                                         </div>
-                                        <h5 class="text-2xl font-serif text-bh-black mb-2 font-bold">NVDA</h5>
-                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">NVIDIA Corporation</p>
-                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-black text-xs font-bold uppercase tracking-wider rounded-full">
+                                        <h5 class="text-2xl font-serif text-white mb-2 font-bold">NVDA</h5>
+                                        <p class="text-xs text-bh-muted uppercase tracking-wider mb-4">NVIDIA Corporation</p>
+                                        <div class="inline-block px-3 py-1.5 bg-bh-gold/10 text-bh-gold text-xs font-bold uppercase tracking-wider rounded-full mb-4">
                                             Coming Soon
                                         </div>
+                                        <button onclick="openInterestPopup('NVDA')" class="w-full mt-4 py-2.5 bg-white/10 text-white font-bold text-center text-xs uppercase tracking-widest hover:bg-bh-gold hover:text-black transition-all rounded-lg border border-white/20">
+                                            Show Interest
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-16 pt-12 border-t border-gray-200">
-                            <p class="text-gray-500 text-sm font-light italic text-center max-w-2xl mx-auto">
+                        <div class="mt-16 pt-12 border-t border-white/10">
+                            <p class="text-bh-muted text-sm font-light italic text-center max-w-2xl mx-auto">
                                 Each SPV is structured to provide tax-efficient exposure to premier technology companies while generating consistent income through sophisticated option strategies.
                             </p>
                         </div>
@@ -710,81 +901,81 @@
         </div>
     </section>
 
-    <!-- 04 ADVANTAGES (Changed to DARK to maintain rhythm) -->
-    <section id="benefits" class="py-32 md:py-40 relative bg-bh-black text-white border-t border-white/10 overflow-hidden">
+    <!-- 05 ADVANTAGES (WHITE to maintain rhythm) -->
+    <section id="benefits" class="py-32 md:py-40 relative bg-white text-bh-black overflow-hidden">
         <div class="container mx-auto px-6 md:px-12 relative z-10">
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-white z-0">04</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Advantages</h2>
+                    <span class="section-number font-serif text-gray-500 z-0">05</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Advantages</h2>
                 </div>
 
                 <!-- Content -->
                 <div class="md:w-3/4 fade-in-section">
-                    <h3 class="text-4xl md:text-6xl font-serif text-white mb-16">Hallmarks of Embark</h3>
+                    <h3 class="text-4xl md:text-6xl font-serif text-bh-black mb-16">Hallmarks of Embark</h3>
 
                     <!-- Grid Content -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20">
 
                         <!-- Item 1 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-lock text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-lock text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Stable Yield</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Generate consistent income from assets that traditionally yield nothing.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Stable Yield</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Generate consistent income from assets that traditionally yield nothing.</p>
                         </div>
 
                         <!-- Item 2 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-arrow-trend-up text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-arrow-trend-up text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Accumulated Upside</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Strategies designed to capture growth while mitigating volatility.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Accumulated Upside</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Strategies designed to capture growth while mitigating volatility.</p>
                         </div>
 
                         <!-- Item 3 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-shield-halved text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-shield-halved text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Downside Protection</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Sophisticated hedging to protect your principal wealth.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Downside Protection</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Sophisticated hedging to protect your principal wealth.</p>
                         </div>
 
                         <!-- Item 4 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-file-invoice-dollar text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-file-invoice-dollar text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Tax Efficiency</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Defer taxes on highly appreciated assets while diversifying.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Tax Efficiency</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Defer taxes on highly appreciated assets while diversifying.</p>
                         </div>
 
                         <!-- Item 5 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-users-viewfinder text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-users-viewfinder text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Expert Management</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Managed by veterans in private equity and tax structuring.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Expert Management</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Managed by veterans in private equity and tax structuring.</p>
                         </div>
 
                         <!-- Item 6 -->
                         <div class="benefit-card text-center group cursor-default">
-                            <div class="hexagon-wrapper">
-                                <div class="hexagon-border border-white/20"></div>
-                                <i class="fa-solid fa-droplet text-3xl text-white group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
+                            <div class="circle-wrapper">
+                                <div class="circle-border border-gray-300"></div>
+                                <i class="fa-solid fa-droplet text-3xl text-bh-black group-hover:text-bh-gold transition-colors duration-300 relative z-10"></i>
                             </div>
-                            <h4 class="text-xl font-serif text-white mb-3 group-hover:text-bh-gold transition-colors">Strategic Liquidity</h4>
-                            <p class="text-sm text-bh-muted font-light leading-relaxed max-w-xs mx-auto">Access capital for new opportunities without liquidating core holdings.</p>
+                            <h4 class="text-xl font-serif text-bh-black mb-3 group-hover:text-bh-gold transition-colors">Strategic Liquidity</h4>
+                            <p class="text-sm text-gray-600 font-light leading-relaxed max-w-xs mx-auto">Access capital for new opportunities without liquidating core holdings.</p>
                         </div>
 
                     </div>
@@ -793,21 +984,21 @@
         </div>
     </section>
 
-    <!-- 05 INSIGHTS (Changed to WHITE to maintain rhythm) -->
-    <section id="insights" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
+    <!-- 06 INSIGHTS (DARK to maintain rhythm) -->
+    <section id="insights" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
         <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-gray-500">05</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Insights</h2>
+                    <span class="section-number font-serif text-white">06</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Insights</h2>
                 </div>
 
                 <!-- Content -->
                 <div class="md:w-3/4 fade-in-section">
                     <div class="mb-12">
-                        <h3 class="text-4xl md:text-6xl font-serif mb-8 text-bh-black">Embark Explainer Videos</h3>
-                        <p class="text-gray-600 font-light text-xl max-w-2xl leading-relaxed">
+                        <h3 class="text-4xl md:text-6xl font-serif mb-8 text-white">Embark Explainer Videos</h3>
+                        <p class="text-bh-muted font-light text-xl max-w-2xl leading-relaxed">
                             Understand the mechanics of unlocking value. View our explainer videos and read about our structured approach to wealth preservation.
                         </p>
                     </div>
@@ -846,7 +1037,7 @@
                     </div>
 
                     <div class="mt-16 text-center">
-                        <a href="#" class="btn-primary inline-block border-2 border-bh-black text-bh-black px-12 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-gold hover:text-black hover:border-bh-gold transition-all">
+                        <a href="#" class="btn-primary inline-block border-2 border-white text-white px-12 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-gold hover:text-black hover:border-bh-gold transition-all">
                             Learn More
                         </a>
                     </div>
@@ -855,35 +1046,35 @@
         </div>
     </section>
 
-    <!-- 06 INVESTORS (Changed to DARK to maintain rhythm) -->
-    <section id="community" class="py-32 md:py-40 bg-bh-black text-white relative overflow-hidden border-t border-white/10">
+    <!-- 07 INVESTORS (WHITE to maintain rhythm) -->
+    <section id="community" class="py-32 md:py-40 bg-white text-bh-black relative overflow-hidden">
         <div class="container mx-auto px-6 md:px-12">
              <div class="flex flex-col md:flex-row gap-20">
                 <!-- Section Label -->
                 <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-white z-0">06</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Investors</h2>
+                    <span class="section-number font-serif text-gray-500 z-0">07</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Investors</h2>
                 </div>
 
                 <div class="md:w-3/4 fade-in-section">
-                    <h3 class="text-4xl md:text-6xl font-serif mb-16 text-white">Who We Serve</h3>
+                    <h3 class="text-4xl md:text-6xl font-serif mb-16 text-bh-black">Who We Serve</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-white">Long-term Holders</h4>
-                            <p class="text-bh-muted font-light text-lg">Investors with significant appreciated assets looking for liquidity without selling.</p>
+                        <div class="border-l-2 border-gray-300 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Long-term Holders</h4>
+                            <p class="text-gray-600 font-light text-lg">Investors with significant appreciated assets looking for liquidity without selling.</p>
                         </div>
-                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-white">Founders & Executives</h4>
-                            <p class="text-bh-muted font-light text-lg">Individuals holding concentrated equity positions seeking diversification.</p>
+                        <div class="border-l-2 border-gray-300 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Founders & Executives</h4>
+                            <p class="text-gray-600 font-light text-lg">Individuals holding concentrated equity positions seeking diversification.</p>
                         </div>
-                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-white">Family Offices</h4>
-                            <p class="text-bh-muted font-light text-lg">Entities managing generational wealth requiring tax-efficient yield strategies.</p>
+                        <div class="border-l-2 border-gray-300 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Family Offices</h4>
+                            <p class="text-gray-600 font-light text-lg">Entities managing generational wealth requiring tax-efficient yield strategies.</p>
                         </div>
-                        <div class="border-l-2 border-white/20 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
-                            <h4 class="font-serif text-2xl mb-4 text-white">Early Employees</h4>
-                            <p class="text-bh-muted font-light text-lg">Holders of pre-IPO stock or early equity looking to realize value.</p>
+                        <div class="border-l-2 border-gray-300 pl-10 py-4 hover:border-bh-gold transition-all stagger-item hover:pl-12">
+                            <h4 class="font-serif text-2xl mb-4 text-bh-black">Early Employees</h4>
+                            <p class="text-gray-600 font-light text-lg">Holders of pre-IPO stock or early equity looking to realize value.</p>
                         </div>
                     </div>
                 </div>
@@ -891,44 +1082,68 @@
         </div>
     </section>
 
-    <!-- 07 CONTACT (Changed to WHITE to maintain rhythm) -->
-    <section id="contact" class="py-32 md:py-40 bg-white text-bh-black relative">
+    <!-- 08 CONTACT (DARK to maintain rhythm) -->
+    <section id="contact" class="py-32 md:py-40 bg-bh-black text-white relative border-t border-white/10">
          <div class="container mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row gap-20">
                  <div class="md:w-1/4 fade-in-section relative md:sticky top-0 md:top-32 h-fit mb-10 md:mb-0">
-                    <span class="section-number font-serif text-gray-500">07</span>
-                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-black font-bold relative z-10 pt-4">Contact</h2>
+                    <span class="section-number font-serif text-white">08</span>
+                    <h2 class="text-sm uppercase tracking-[0.3em] text-bh-gold font-bold relative z-10 pt-4">Contact</h2>
                 </div>
 
                 <div class="md:w-3/4 grid grid-cols-1 gap-12 fade-in-section">
                     <div class="max-w-2xl">
-                        <h4 class="font-serif text-4xl md:text-6xl mb-10 text-bh-black leading-tight">Start the Conversation.</h4>
-                        <p class="text-gray-600 font-light text-xl mb-14 leading-relaxed">Schedule a meeting with one of our experts to discuss how Embark Fund can help you unlock value.</p>
+                        <h4 class="font-serif text-4xl md:text-6xl mb-10 text-white leading-tight">Start the Conversation.</h4>
+                        <p class="text-bh-muted font-light text-xl mb-14 leading-relaxed">Schedule a meeting with one of our experts to discuss how Embark Fund can help you unlock value.</p>
 
                         <div class="flex flex-col sm:flex-row gap-6">
-                            <a href="mailto:investor.relations@embarkfunds.com" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-widest text-xs font-bold hover:bg-bh-black hover:text-white transition-all text-center">
+                            <a href="mailto:investor.relations@embarkfunds.com" class="btn-primary bg-bh-gold text-black px-10 py-5 uppercase tracking-widest text-xs font-bold hover:bg-white transition-all text-center">
                                 Email Investor Relations
                             </a>
-                            <a href="#" class="btn-primary border-2 border-gray-300 text-bh-black px-10 py-5 uppercase tracking-widest text-xs hover:border-bh-gold hover:bg-bh-gold/10 transition-all text-center font-bold">
+                            <a href="https://meetings.hubspot.com/investor-relations9?uuid=6533cbfb-8e12-4bdb-9689-d76d79993bbc" target="_blank" class="btn-primary border-2 border-white/40 text-white px-10 py-5 uppercase tracking-widest text-xs hover:border-bh-gold hover:bg-bh-gold/10 transition-all text-center font-bold">
                                 Schedule Consultation
                             </a>
                         </div>
                     </div>
 
-                    <div class="mt-16 pt-16 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-gray-600 font-light">
+                    <div class="mt-16 pt-16 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-bh-muted font-light">
                         <div>
-                            <p class="uppercase tracking-widest mb-3 text-bh-black font-bold">Email</p>
-                            <a href="mailto:investor.relations@embarkfunds.com" class="hover:text-bh-gold transition-colors text-lg text-bh-black">investor.relations@embarkfunds.com</a>
+                            <p class="uppercase tracking-widest mb-3 text-white font-bold">Email</p>
+                            <a href="mailto:investor.relations@embarkfunds.com" class="hover:text-bh-gold transition-colors text-lg text-white">investor.relations@embarkfunds.com</a>
                         </div>
                         <div>
-                            <p class="uppercase tracking-widest mb-3 text-bh-black font-bold">Phone</p>
-                            <a href="tel:+14084830214" class="hover:text-bh-gold transition-colors text-lg text-bh-black">+1 (408) 483-0214</a>
+                            <p class="uppercase tracking-widest mb-3 text-white font-bold">Phone</p>
+                            <a href="tel:+14084830214" class="hover:text-bh-gold transition-colors text-lg text-white">+1 (408) 483-0214</a>
                         </div>
                     </div>
                 </div>
             </div>
          </div>
     </section>
+
+    <!-- Interest Popup Modal -->
+    <div id="interest-popup">
+        <div class="popup-content bg-bh-black border-2 border-bh-gold rounded-xl p-8 md:p-12 max-w-2xl w-full mx-4 transform scale-95 transition-all duration-300 relative">
+            <!-- Close Button -->
+            <button onclick="closeInterestPopup()" class="absolute top-6 right-6 text-white hover:text-bh-gold transition-colors text-2xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="mb-8">
+                <span class="text-bh-gold text-xs uppercase tracking-[0.3em] font-bold block mb-3">Express Interest</span>
+                <h3 class="text-3xl md:text-4xl font-serif text-white mb-4">
+                    <span id="spv-name">SPV</span> Investment
+                </h3>
+                <p class="text-bh-muted font-light text-lg">
+                    Complete the form below and our team will reach out to discuss this investment opportunity.
+                </p>
+            </div>
+
+            <!-- HubSpot Form Container -->
+            <div id="hubspot-form-container"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-bh-black py-16 text-xs text-bh-muted border-t border-white/5">
@@ -999,7 +1214,7 @@
 
         // Nav Dots & Mobile Menu
         const navDots = document.querySelectorAll('.nav-dot');
-        const sections = ['#approach', '#products', '#spvs', '#benefits', '#insights', '#community', '#contact'];
+        const sections = ['#approach', '#explainer', '#products', '#spvs', '#benefits', '#insights', '#community', '#contact'];
 
         navDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
@@ -1046,6 +1261,116 @@
                 document.body.classList.remove('overflow-hidden');
             });
         });
+
+        // Interest Popup Functions
+        let currentSPV = '';
+        let formLoaded = false;
+
+        function openInterestPopup(spvName) {
+            console.log('Opening popup for:', spvName);
+            currentSPV = spvName;
+            const popup = document.getElementById('interest-popup');
+            const spvNameElement = document.getElementById('spv-name');
+
+            if (!popup) {
+                console.error('Popup element not found!');
+                return;
+            }
+
+            // Update SPV name in modal
+            spvNameElement.textContent = spvName;
+
+            // Show popup
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            console.log('Popup should now be visible');
+
+            // Load HubSpot form if not already loaded
+            if (!formLoaded) {
+                loadHubSpotForm(spvName);
+                formLoaded = true;
+            } else {
+                // If form is already loaded, just update the SPV field
+                updateSPVField(spvName);
+            }
+        }
+
+        function closeInterestPopup() {
+            console.log('Closing popup');
+            const popup = document.getElementById('interest-popup');
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset formLoaded so it reloads with the correct SPV next time
+            formLoaded = false;
+            document.getElementById('hubspot-form-container').innerHTML = '';
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('interest-popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeInterestPopup();
+            }
+        });
+
+        // Close popup on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeInterestPopup();
+            }
+        });
+
+        function loadHubSpotForm(spvName) {
+            // Load HubSpot forms script if not already loaded
+            if (typeof hbspt === 'undefined') {
+                const script = document.createElement('script');
+                script.charset = 'utf-8';
+                script.type = 'text/javascript';
+                script.src = '//js.hsforms.net/forms/embed/v2.js';
+                script.onload = function() {
+                    createForm(spvName);
+                };
+                document.body.appendChild(script);
+            } else {
+                createForm(spvName);
+            }
+        }
+
+        function createForm(spvName) {
+            hbspt.forms.create({
+                portalId: "48102387",
+                formId: "efd29d4f-aefa-46ab-bdc9-e847abc93bed",
+                region: "na1",
+                target: "#hubspot-form-container",
+                onFormReady: function($form) {
+                    // Pre-populate SPV field if it exists
+                    updateSPVField(spvName);
+                },
+                onFormSubmit: function($form) {
+                    console.log('Form submitted for ' + spvName);
+                },
+                onFormSubmitted: function() {
+                    // Close popup after successful submission with a slight delay
+                    setTimeout(function() {
+                        closeInterestPopup();
+                        // Optional: Show success message
+                        alert('Thank you for your interest! Our team will be in touch soon.');
+                    }, 1000);
+                }
+            });
+        }
+
+        function updateSPVField(spvName) {
+            // Try to find and update SPV field in the form
+            // This assumes you have a field in your HubSpot form for the SPV selection
+            // Adjust the field name based on your actual HubSpot form field
+            setTimeout(function() {
+                const spvField = document.querySelector('input[name="interested_spv"], select[name="interested_spv"]');
+                if (spvField) {
+                    spvField.value = spvName;
+                }
+            }, 100);
+        }
     </script>
 </body>
 </html>
